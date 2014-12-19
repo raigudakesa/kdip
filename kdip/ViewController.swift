@@ -15,6 +15,7 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
     var xmppReconnect: XMPPReconnect!
     var password: String = ""
     var messages = [Message]()
+    var sid: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,11 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
         
         self.inputToolbar.contentView.leftBarButtonItem = nil
         self.automaticallyScrollsToMostRecentMessage = true
-        
-        self.messages.append(Message(text: "Welcome", sender: "Rai Gudakesa"))
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        self.messages.append(Message(text: text, sender: "Rai Gudakesa"))
+        self.sid++
+        self.messages.append(Message(senderId: "\(self.sid)", senderName: "Rai Gudakesa", message: text))
         self.finishSendingMessage()
     }
     
@@ -55,25 +55,15 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
         return messages[indexPath.item]
     }
     
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, bubbleImageViewForItemAtIndexPath indexPath: NSIndexPath!) -> UIImageView! {
-//        let message = messages[indexPath.item]
-//        
-//        if message.sender() == sender {
-//            return UIImageView(image: outgoingBubbleImageView.image, highlightedImage: outgoingBubbleImageView.highlightedImage)
-//        }
-//        
-//        return UIImageView(image: incomingBubbleImageView.image, highlightedImage: incomingBubbleImageView.highlightedImage)
-//    }
-//    
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageViewForItemAtIndexPath indexPath: NSIndexPath!) -> UIImageView! {
-//        let message = messages[indexPath.item]
-//        if let avatar = avatars[message.sender()] {
-//            return UIImageView(image: avatar)
-//        } else {
-//            setupAvatarImage(message.sender(), imageUrl: message.imageUrl(), incoming: true)
-//            return UIImageView(image:avatars[message.sender()])
-//        }
-//    }
+    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+        var bubbleFactory = JSQMessagesBubbleImageFactory()
+        
+        return bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return nil
+    }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
@@ -84,36 +74,17 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
         
         let message = messages[indexPath.item]
 
-        cell.textView.textColor = UIColor.whiteColor()
-        
-        let attributes : [NSObject:AnyObject] = [NSForegroundColorAttributeName:cell.textView.textColor, NSUnderlineStyleAttributeName: 1]
-        cell.textView.linkTextAttributes = attributes
+        cell.textView.textColor = UIColor.blackColor()
+        cell.textView.text = message.text_
+        cell.sizeToFit()
+        //let attributes : [NSObject:AnyObject] = [NSForegroundColorAttributeName:cell.textView.textColor, NSUnderlineStyleAttributeName: 1]
+        //cell.textView.linkTextAttributes = attributes
         
         //        cell.textView.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView.textColor,
         //            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle]
         return cell
     }
     
-    
-    // View  usernames above bubbles
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
-//        let message = messages[indexPath.item];
-//        
-//        // Sent by me, skip
-//        if message.sender() == sender {
-//            return nil;
-//        }
-//        
-//        // Same as previous sender, skip
-//        if indexPath.item > 0 {
-//            let previousMessage = messages[indexPath.item - 1];
-//            if previousMessage.sender() == message.sender() {
-//                return nil;
-//            }
-//        }
-//        
-//        return NSAttributedString(string:message.sender())
-//    }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let message = messages[indexPath.item]
@@ -123,13 +94,13 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
 //            return CGFloat(0.0);
 //        }
         
-        // Same as previous sender, skip
-        if indexPath.item > 0 {
-            let previousMessage = messages[indexPath.item - 1];
-            if previousMessage.sender() == message.sender() {
-                return CGFloat(0.0);
-            }
-        }
+//        // Same as previous sender, skip
+//        if indexPath.item > 0 {
+//            let previousMessage = messages[indexPath.item - 1];
+//            if previousMessage.sender() == message.sender() {
+//                return CGFloat(0.0);
+//            }
+//        }
         
         return kJSQMessagesCollectionViewCellLabelHeightDefault
     }

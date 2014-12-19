@@ -9,12 +9,12 @@
 import Foundation
 
 class Message: NSObject, JSQMessageData {
-    var text_: String
-    var sender_: String
-    var senderId_: String
-    var date_: NSDate
-    var hash_: UInt
-    var media_: JSQMessageMediaData
+    var text_: String!
+    var sender_: String!
+    var senderId_: String!
+    var date_: NSDate!
+    var hash_: UInt = 0
+    var media_: JSQMessageMediaData!
     var isMediaMessage_: Bool = false
     
     func senderDisplayName() -> String! {
@@ -45,10 +45,30 @@ class Message: NSObject, JSQMessageData {
         return media_
     }
     
-    init(text: String?, sender: String?) {
-        self.text_ = text!
-        self.sender_ = sender!
+    override init(){
+        super.init()
         self.date_ = NSDate()
+        self.hash_ = 0
+    }
+    
+    init(senderId: String, senderName: String, message: String)
+    {
+        self.text_ = message
+        self.sender_ = senderName
+        self.senderId_ = senderId
+        self.date_ = NSDate()
+        self.media_ = nil
+        self.isMediaMessage_ = false
+    }
+    
+    init(senderId: String, senderName: String, message: String, date: NSDate, isMediaMessage:Bool, media: JSQMessageMediaData)
+    {
+        self.text_ = message
+        self.sender_ = senderName
+        self.senderId_ = senderId
+        self.date_ = date
+        self.media_ = media
+        self.isMediaMessage_ = true
     }
 
 }
