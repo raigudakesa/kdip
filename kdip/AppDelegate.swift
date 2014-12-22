@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     var xmppStream: XMPPStream!
     var xmppRoster: XMPPRoster!
     var xmppRosterStorage: XMPPRosterCoreDataStorage!
+    
     var xmppReconnect: XMPPReconnect!
     var password: String = ""
     var isConnectionOpen: Bool = false
@@ -88,13 +89,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         var error: NSError?
         
         if xmppStream!.authenticateWithPassword(self.password, error: &error) {
-            println("Login Success")
+            println("Authenticating...")
         }
         
     }
     
     func xmppStreamDidAuthenticate(sender: XMPPStream!) {
+        println("Authenticated")
+        
         self.chatDelegate?.chatDelegate!(didLogin: true, jid: "\(sender.myJID)", name: "\(sender.myJID)")
+        
+        // SET User Presence to Online
         var presence = XMPPPresence()
         var show = DDXMLElement.elementWithName("show") as DDXMLElement
         var status = DDXMLElement.elementWithName("status") as DDXMLElement
@@ -103,15 +108,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         presence.addChild(show)
         presence.addChild(status)
         xmppStream!.sendElement(presence)
+        
+        // Test VCard
+        var iq = XMPPIQ()
+        iq.addAttributeWithName("from", stringValue: "\(sender.myJID)")
+        iq.addAttributeWithName("type", stringValue: "get")
+        iq.addAttributeWithName("id", stringValue: "adit@vb.icbali.com")
+        var vcard = DDXMLElement.elementWithName("vcard") as DDXMLElement
+        vcard.addAttributeWithName("xmlns", stringValue: "vcard-temp")
+//        var query = DDXMLElement.elementWithName("query") as DDXMLElement
+//        query.addAttributeWithName("xmlns", stringValue: "jabber:iq:roster")
+        iq.addChild(vcard)
+        xmppStream.sendElement(iq)
     }
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         let mesg = message.elementForName("body");
         println("Message : \(message)")
-//        if mesg != nil {
-//            self.msg.addObject(JSQMessage(senderId: "2", displayName: "Outside", text: mesg.stringValue()))
-//            self.finishReceivingMessage()
-//        }
+        if mesg != nil {
+            self.chatDelegate?.chatDelegate!(didMessageReceived: mesg.stringValue())
+        }
         
     }
     
@@ -134,6 +150,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func xmppRoster(sender: XMPPRoster!, didReceiveRosterItem item: DDXMLElement!) {
         println("ROSTER ITEM: \(item)")
+    }
+    
+    func xmppStream(sender: XMPPStream!, didReceiveIQ iq: XMPPIQ!) -> AnyObject! {
+        println("IQ: \(iq)")
+        return nil
     }
 
 

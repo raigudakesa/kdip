@@ -51,7 +51,6 @@
         <!--View Controller-->
         <scene sceneID="LJL-4z-81s">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oSR-k7-HPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="UPv-Fh-XCy" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sFd-f8-2dY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -80,13 +79,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="swk-bH-M7y"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oSR-k7-HPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-327" y="-885"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main BarUI Tab Bar Controller-->
         <scene sceneID="mUg-7p-D8D">
             <objects>
-                <tabBarController id="d2B-Nv-VB6" sceneMemberID="viewController">
+                <tabBarController id="d2B-Nv-VB6" customClass="MainBar_UITabBarController" customModule="kdip" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="xDL-Mc-rad"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="PQH-iS-8Gu">
@@ -203,19 +203,52 @@
             </objects>
             <point key="canvasLocation" x="-860" y="1829"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Chat List Table View Controller-->
         <scene sceneID="eD6-h7-6zD">
             <objects>
-                <tableViewController id="xoe-Kn-z5p" sceneMemberID="viewController">
+                <tableViewController id="xoe-Kn-z5p" customClass="ChatList_TableViewController" customModule="kdip" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Dpc-H9-ytk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellchatlist" id="fwA-sE-y16">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellchatlist" id="fwA-sE-y16" customClass="ChatList_TableViewCell" customModule="kdip" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fwA-sE-y16" id="k31-Y6-8eQ">
                                     <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellchatlist_2" rowHeight="68" id="b3M-Im-2r6">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b3M-Im-2r6" id="rvl-RC-tLz">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="9z1-Bj-Wbi">
+                                            <rect key="frame" x="15" y="8" width="50" height="52"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rai Gudakesa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Er7-CO-uj3">
+                                            <rect key="frame" x="73" y="4" width="180" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:59 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="imb-gl-7mE">
+                                            <rect key="frame" x="261" y="4" width="56" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum Dolor sir amet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zt6-IT-a9k">
+                                            <rect key="frame" x="73" y="21" width="180" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>

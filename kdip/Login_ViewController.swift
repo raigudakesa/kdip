@@ -35,6 +35,14 @@ class Login_ViewController: UIViewController, ChatDelegate {
             self.performSegueWithIdentifier("showMainTab", sender: self)
         }
     }
+    
+    func chatDelegate(didBuddyListReceived buddylist: NSMutableArray) {
+        
+    }
+    
+    func chatDelegate(didMessageReceived message: String) {
+        
+    }
 
     /*
     // MARK: - Navigation

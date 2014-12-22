@@ -164,6 +164,10 @@
 		311650E31A42CF5D0027F563 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311650E21A42CF5D0027F563 /* CoreData.framework */; };
 		311650EA1A42D2E70027F563 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 311650E81A42D16C0027F563 /* libxml2.dylib */; };
 		311650EB1A42D2EE0027F563 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 311650E41A42CF680027F563 /* libresolv.dylib */; };
+		312066F61A480878008F518C /* ChatList_TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F51A480878008F518C /* ChatList_TableViewController.swift */; };
+		312066F81A4808A8008F518C /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F71A4808A8008F518C /* ChatList.swift */; };
+		312066FA1A480B62008F518C /* MainBar_UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F91A480B62008F518C /* MainBar_UITabBarController.swift */; };
+		312066FC1A481400008F518C /* ChatList_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066FB1A481400008F518C /* ChatList_TableViewCell.swift */; };
 		313083F01A47B61D00DC25DC /* JSQMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */; };
 		313083F11A47B61D00DC25DC /* JSQMessages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313083871A47B61D00DC25DC /* JSQMessages.strings */; };
 		313083F21A47B61D00DC25DC /* JSQSystemSoundPlayer+JSQMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 313083991A47B61D00DC25DC /* JSQSystemSoundPlayer+JSQMessages.m */; };
@@ -553,6 +557,10 @@
 		311650E41A42CF680027F563 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		311650E81A42D16C0027F563 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		311650EC1A42D33F0027F563 /* XMPPFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
+		312066F51A480878008F518C /* ChatList_TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewController.swift; sourceTree = "<group>"; };
+		312066F71A4808A8008F518C /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
+		312066F91A480B62008F518C /* MainBar_UITabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBar_UITabBarController.swift; sourceTree = "<group>"; };
+		312066FB1A481400008F518C /* ChatList_TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewCell.swift; sourceTree = "<group>"; };
 		313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JSQMessagesAssets.bundle; sourceTree = "<group>"; };
 		313083881A47B61D00DC25DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/JSQMessages.strings; sourceTree = "<group>"; };
 		313083891A47B61D00DC25DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JSQMessages.strings; sourceTree = "<group>"; };
@@ -722,6 +730,7 @@
 				31164AA81A42BC720027F563 /* ViewController.swift */,
 				31D94FA31A440592003718BB /* Message.swift */,
 				31B919341A47E7AB006A934F /* Login_ViewController.swift */,
+				312066F91A480B62008F518C /* MainBar_UITabBarController.swift */,
 				31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */,
 				31164AAA1A42BC720027F563 /* Main.storyboard */,
 				31164AAD1A42BC720027F563 /* Images.xcassets */,
@@ -1830,9 +1839,13 @@
 		31BE9DDD1A47FCA200BA00FA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
+				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
+				312066F71A4808A8008F518C /* ChatList.swift */,
 			);
 			name = Chat;
-			sourceTree = "<group>";
+			path = /Users/rai/Documents/project/kdip/kdip/Chat;
+			sourceTree = "<absolute>";
 		};
 		31BE9DFD1A4805C300BA00FA /* Products */ = {
 			isa = PBXGroup;
@@ -2019,11 +2032,13 @@
 				311650B41A42C4510027F563 /* NSXMLElement+XEP_0335.m in Sources */,
 				311650941A42C4510027F563 /* XMPPCapabilities.xcdatamodel in Sources */,
 				3130840D1A47B61D00DC25DC /* JSQMessagesCollectionViewCellIncoming.m in Sources */,
+				312066FC1A481400008F518C /* ChatList_TableViewCell.swift in Sources */,
 				3116504C1A42C4510027F563 /* XMPPIQ.m in Sources */,
 				313083F61A47B61D00DC25DC /* UIImage+JSQMessages.m in Sources */,
 				311650771A42C4510027F563 /* XMPPMUC.m in Sources */,
 				3116505D1A42C4510027F563 /* XMPPRoster.xcdatamodel in Sources */,
 				311650801A42C4510027F563 /* XMPPvCardTempAdrTypes.m in Sources */,
+				312066FA1A480B62008F518C /* MainBar_UITabBarController.swift in Sources */,
 				311650671A42C4510027F563 /* XMPPJabberRPCModule.m in Sources */,
 				311650441A42C4510027F563 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				311650911A42C4510027F563 /* XMPPSoftwareVersion.m in Sources */,
@@ -2051,6 +2066,7 @@
 				313084061A47B61D00DC25DC /* JSQMessagesAvatarImage.m in Sources */,
 				313083FD1A47B61D00DC25DC /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,
 				311650A31A42C4510027F563 /* XMPPBlocking.m in Sources */,
+				312066F81A4808A8008F518C /* ChatList.swift in Sources */,
 				311650551A42C4510027F563 /* XMPPFileTransfer.m in Sources */,
 				3116506D1A42C4510027F563 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				313084031A47B61D00DC25DC /* JSQLocationMediaItem.m in Sources */,
@@ -2089,6 +2105,7 @@
 				3116504F1A42C4510027F563 /* XMPPModule.m in Sources */,
 				311650781A42C4510027F563 /* XMPPRoom.m in Sources */,
 				311650721A42C4510027F563 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
+				312066F61A480878008F518C /* ChatList_TableViewController.swift in Sources */,
 				313084141A47B61D00DC25DC /* JSQMessagesLoadEarlierHeaderView.m in Sources */,
 				311650751A42C4510027F563 /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				311650621A42C4510027F563 /* XMPPUserMemoryStorageObject.m in Sources */,
