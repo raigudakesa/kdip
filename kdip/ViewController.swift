@@ -16,10 +16,13 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
     var password: String = ""
     var messages = [Message]()
     var sid: Int = 0
+    var msg = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         var error: NSError?
+        var data: NSData?
+    
         self.xmppStream = XMPPStream()
         self.xmppReconnect = XMPPReconnect()
         self.xmppRosterStorage = XMPPRosterCoreDataStorage()
@@ -40,54 +43,62 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
         self.password = "qwerty"
         self.xmppStream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error)
         
+        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
+        self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
         
-        self.inputToolbar.contentView.leftBarButtonItem = nil
-        self.automaticallyScrollsToMostRecentMessage = true
+        self.showLoadEarlierMessagesHeader = true
+        
+        // Harus Set User dan ID
+        self.senderDisplayName = "raigudakesa"
+        self.senderId = "raigudakesa@vb.icbali.com"
+        
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        self.sid++
-        self.messages.append(Message(senderId: "\(self.sid)", senderName: "Rai Gudakesa", message: text))
-        self.finishSendingMessage()
+        var messg = XMPPMessage()
+        messg.addBody(text)
+        messg.addAttributeWithName("type", stringValue: "chat")
+        messg.addAttributeWithName("to", stringValue: "adit@vb.icbali.com")
+        self.xmppStream.sendElement(messg)
+        self.msg.addObject(JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text))
+        self.finishSendingMessageAnimated(true)
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        return messages[indexPath.item]
+        //return self.messages[indexPath.item]
+        return self.msg.objectAtIndex(indexPath.item) as JSQMessageData
+    }
+    
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return msg.count
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         var bubbleFactory = JSQMessagesBubbleImageFactory()
         
-        return bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
+        if (msg.objectAtIndex(indexPath.item) as JSQMessage).senderId == self.senderId
+        {
+            return bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+        }
+        
+        return bubbleFactory.incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as JSQMessagesCollectionViewCell
         
-        let message = messages[indexPath.item]
-
+        let message = msg.objectAtIndex(indexPath.item) as JSQMessage
         cell.textView.textColor = UIColor.blackColor()
-        cell.textView.text = message.text_
-        cell.sizeToFit()
-        //let attributes : [NSObject:AnyObject] = [NSForegroundColorAttributeName:cell.textView.textColor, NSUnderlineStyleAttributeName: 1]
-        //cell.textView.linkTextAttributes = attributes
-        
-        //        cell.textView.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView.textColor,
-        //            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle]
         return cell
     }
     
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        let message = messages[indexPath.item]
+        //let message = messages[indexPath.item]
         
         // Sent by me, skip
 //        if message.sender() == sender {
@@ -129,8 +140,13 @@ class ViewController: JSQMessagesViewController, XMPPStreamDelegate, XMPPRosterD
     }
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
-        let msg = message.elementForName("body");
+        let mesg = message.elementForName("body");
         println("Message : \(message)")
+        if mesg != nil {
+            self.msg.addObject(JSQMessage(senderId: "2", displayName: "Outside", text: mesg.stringValue()))
+            self.finishReceivingMessage()
+        }
+        
     }
     
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {

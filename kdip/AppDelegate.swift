@@ -10,14 +10,22 @@ import Foundation
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate {
 
     var window: UIWindow?
-
+    var chatDelegate: ChatDelegate?
+    
+    // XMPP Variables
+    var xmppStream: XMPPStream!
+    var xmppRoster: XMPPRoster!
+    var xmppRosterStorage: XMPPRosterCoreDataStorage!
+    var xmppReconnect: XMPPReconnect!
+    var password: String = ""
+    var isConnectionOpen: Bool = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        self.onXMPPFirstInit()
         return true
     }
 
@@ -41,6 +49,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    // XMPP Receiver Module
+    func onXMPPFirstInit()
+    {
+        self.xmppStream = XMPPStream()
+        self.xmppReconnect = XMPPReconnect()
+        self.xmppRosterStorage = XMPPRosterCoreDataStorage()
+        self.xmppRoster = XMPPRoster(rosterStorage: self.xmppRosterStorage)
+        self.xmppRoster.autoFetchRoster = true
+        self.xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = true
+        
+        //Activate
+        self.xmppReconnect.activate(xmppStream)
+        self.xmppRoster.activate(xmppStream)
+        
+        //Delegate
+        self.xmppStream.addDelegate(self, delegateQueue: dispatch_get_main_queue())
+        self.xmppRoster.addDelegate(self, delegateQueue: dispatch_get_main_queue())
+        
+        //Server Configuration
+        self.xmppStream.hostName = "vb.icbali.com"
+        self.xmppStream.hostPort = 5222
+    }
+    
+    func onBeginLogin(jabberID: String, password: String)
+    {
+        var error: NSError?
+        var data: NSData?
+        
+        self.xmppStream.myJID = XMPPJID.jidWithString(jabberID);
+        self.password = password
+        self.xmppStream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error)
+    }
+    
+    func xmppStreamDidConnect(sender: XMPPStream!) {
+        var error: NSError?
+        
+        if xmppStream!.authenticateWithPassword(self.password, error: &error) {
+            println("Login Success")
+        }
+        
+    }
+    
+    func xmppStreamDidAuthenticate(sender: XMPPStream!) {
+        self.chatDelegate?.chatDelegate!(didLogin: true, jid: "\(sender.myJID)", name: "\(sender.myJID)")
+        var presence = XMPPPresence()
+        var show = DDXMLElement.elementWithName("show") as DDXMLElement
+        var status = DDXMLElement.elementWithName("status") as DDXMLElement
+        show.setStringValue("chat")
+        status.setStringValue("Available")
+        presence.addChild(show)
+        presence.addChild(status)
+        xmppStream!.sendElement(presence)
+    }
+    
+    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
+        let mesg = message.elementForName("body");
+        println("Message : \(message)")
+//        if mesg != nil {
+//            self.msg.addObject(JSQMessage(senderId: "2", displayName: "Outside", text: mesg.stringValue()))
+//            self.finishReceivingMessage()
+//        }
+        
+    }
+    
+    func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {
+        println("Receive Presence : \(presence)")
+        
+        if presence.attributeStringValueForName("type") != nil {
+            switch presence.attributeStringValueForName("type") {
+            case "subscribe":
+                self.xmppRoster.acceptPresenceSubscriptionRequestFrom(presence.from(), andAddToRoster: true)
+            default:
+                break;
+            }
+        }
+    }
+    
+    func xmppStream(sender: XMPPStream!, didSendPresence presence: XMPPPresence!) {
+        println("Sended Presence : \(presence)")
+    }
+    
+    func xmppRoster(sender: XMPPRoster!, didReceiveRosterItem item: DDXMLElement!) {
+        println("ROSTER ITEM: \(item)")
     }
 
 

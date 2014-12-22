@@ -370,8 +370,19 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
         return;
     }
     
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:items - 1 inSection:0]
-                                atScrollPosition:UICollectionViewScrollPositionTop
+    //  workaround for really long messages not scrolling
+    //  if last message is too long, use scroll position bottom for better appearance, else use top
+    //  possibly a UIKit bug, see #480 on GitHub
+    NSUInteger finalRow = MAX(0, [self.collectionView numberOfItemsInSection:0] - 1);
+    NSIndexPath *finalIndexPath = [NSIndexPath indexPathForItem:finalRow inSection:0];
+    CGSize finalCellSize = [self.collectionView.collectionViewLayout sizeForItemAtIndexPath:finalIndexPath];
+    
+    CGFloat maxHeightForVisibleMessage = CGRectGetHeight(self.collectionView.bounds) - self.collectionView.contentInset.top - CGRectGetHeight(self.inputToolbar.bounds);
+    
+    UICollectionViewScrollPosition scrollPosition = (finalCellSize.height > maxHeightForVisibleMessage) ? UICollectionViewScrollPositionBottom : UICollectionViewScrollPositionTop;
+    
+    [self.collectionView scrollToItemAtIndexPath:finalIndexPath
+                                atScrollPosition:scrollPosition
                                         animated:animated];
 }
 
@@ -760,11 +771,25 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)keyboardController:(JSQMessagesKeyboardController *)keyboardController keyboardDidChangeFrame:(CGRect)keyboardFrame
 {
+    if (![self.inputToolbar.contentView.textView isFirstResponder] && self.toolbarBottomLayoutGuide.constant == 0.0f) {
+        return;
+    }
+    
     CGFloat heightFromBottom = CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(keyboardFrame);
     
     heightFromBottom = MAX(0.0f, heightFromBottom);
     
     [self jsq_setToolbarBottomLayoutGuideConstant:heightFromBottom];
+}
+
+- (void)keyboardControllerKeyboardDidHide:(JSQMessagesKeyboardController *)keyboardController
+{
+    if (![self.inputToolbar.contentView.textView isFirstResponder]) {
+        return;
+    }
+    
+    [self jsq_setToolbarBottomLayoutGuideConstant:0.0f];
+    [self.inputToolbar.contentView.textView resignFirstResponder];
 }
 
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant

@@ -7,4 +7,5 @@
 //
 
 #import "XMPPFramework.h"
+#import "JSQSystemSoundPlayer.h"
 #import "JSQMessages.h"
