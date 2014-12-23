@@ -12,7 +12,7 @@ class ChatList {
     var name: String = ""
     var jid: String = ""
     var lastMessage: String = ""
-    var lastMessageReceivedDate: String = ""
+    var lastMessageReceivedDate: NSDate = NSDate()
     var type: ChatListType = ChatListType.Single
     
     init()
@@ -20,7 +20,7 @@ class ChatList {
         
     }
     
-    init(jid: String, name: String, lastMessage: String, lastMessageReceivedDate: String, type: ChatListType)
+    init(jid: String, name: String, lastMessage: String, lastMessageReceivedDate: NSDate, type: ChatListType)
     {
         self.name = name
         self.jid = jid

@@ -165,7 +165,6 @@
 		311650EA1A42D2E70027F563 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 311650E81A42D16C0027F563 /* libxml2.dylib */; };
 		311650EB1A42D2EE0027F563 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 311650E41A42CF680027F563 /* libresolv.dylib */; };
 		312066F61A480878008F518C /* ChatList_TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F51A480878008F518C /* ChatList_TableViewController.swift */; };
-		312066F81A4808A8008F518C /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F71A4808A8008F518C /* ChatList.swift */; };
 		312066FA1A480B62008F518C /* MainBar_UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F91A480B62008F518C /* MainBar_UITabBarController.swift */; };
 		312066FC1A481400008F518C /* ChatList_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066FB1A481400008F518C /* ChatList_TableViewCell.swift */; };
 		313083F01A47B61D00DC25DC /* JSQMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */; };
@@ -212,10 +211,15 @@
 		313084191A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313083EE1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.m */; };
 		3130841A1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313083EF1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib */; };
 		3130847E1A47B6A300DC25DC /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */; };
+		319BA85D1A4905E9009E2E31 /* XMPPSIFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */; };
+		319BA8621A492CFE009E2E31 /* ModelChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */; };
+		31A575411A49610700979C3A /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A575401A49610700979C3A /* ChatList.swift */; };
 		31B919351A47E7AB006A934F /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B919341A47E7AB006A934F /* Login_ViewController.swift */; };
 		31B919381A47EBBB006A934F /* ChatDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B919371A47EBBB006A934F /* ChatDelegate.swift */; };
 		31BE9DF21A4802B400BA00FA /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */; };
 		31D94FA41A440592003718BB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D94FA31A440592003718BB /* Message.swift */; };
+		31EC161F1A4965F3007ADB60 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161D1A4965F3007ADB60 /* Conversation.swift */; };
+		31EC16201A4965F3007ADB60 /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161E1A4965F3007ADB60 /* FriendList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -558,7 +562,6 @@
 		311650E81A42D16C0027F563 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		311650EC1A42D33F0027F563 /* XMPPFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
 		312066F51A480878008F518C /* ChatList_TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewController.swift; sourceTree = "<group>"; };
-		312066F71A4808A8008F518C /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		312066F91A480B62008F518C /* MainBar_UITabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBar_UITabBarController.swift; sourceTree = "<group>"; };
 		312066FB1A481400008F518C /* ChatList_TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewCell.swift; sourceTree = "<group>"; };
 		313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JSQMessagesAssets.bundle; sourceTree = "<group>"; };
@@ -662,12 +665,18 @@
 		313083EF1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		3130847C1A47B6A300DC25DC /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSQSystemSoundPlayer.h; path = Classes/JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQSystemSoundPlayer.m; path = Classes/JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
+		319BA85B1A4905E9009E2E31 /* XMPPSIFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSIFileTransfer.h; sourceTree = "<group>"; };
+		319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPSIFileTransfer.m; sourceTree = "<group>"; };
+		319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelChat.xcdatamodel; sourceTree = "<group>"; };
+		31A575401A49610700979C3A /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		31B919331A47D5F2006A934F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		31B919341A47E7AB006A934F /* Login_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = /Users/rai/Documents/project/kdip/kdip/Delegate/ChatDelegate.swift; sourceTree = "<absolute>"; };
 		31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		31D94FA31A440592003718BB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -722,6 +731,7 @@
 		31164AA31A42BC720027F563 /* kdip */ = {
 			isa = PBXGroup;
 			children = (
+				319BA8631A492E19009E2E31 /* CoreData */,
 				31BE9DDD1A47FCA200BA00FA /* Chat */,
 				31BE9DDC1A47FC9B00BA00FA /* Friends */,
 				31B919361A47EB91006A934F /* Delegate */,
@@ -947,6 +957,7 @@
 				31164F9E1A42C4510027F563 /* XEP-0082 */,
 				31164FA31A42C4510027F563 /* XEP-0085 */,
 				31164FA61A42C4510027F563 /* XEP-0092 */,
+				319BA85A1A4905E9009E2E31 /* XEP-0096 */,
 				31164FA91A42C4510027F563 /* XEP-0100 */,
 				31164FAC1A42C4510027F563 /* XEP-0106 */,
 				31164FAF1A42C4510027F563 /* XEP-0115 */,
@@ -1820,6 +1831,25 @@
 			path = JSQSystemSoundPlayer;
 			sourceTree = "<group>";
 		};
+		319BA85A1A4905E9009E2E31 /* XEP-0096 */ = {
+			isa = PBXGroup;
+			children = (
+				319BA85B1A4905E9009E2E31 /* XMPPSIFileTransfer.h */,
+				319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */,
+			);
+			path = "XEP-0096";
+			sourceTree = "<group>";
+		};
+		319BA8631A492E19009E2E31 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				31EC161D1A4965F3007ADB60 /* Conversation.swift */,
+				31EC161E1A4965F3007ADB60 /* FriendList.swift */,
+				319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		31B919361A47EB91006A934F /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1841,7 +1871,7 @@
 			children = (
 				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
 				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
-				312066F71A4808A8008F518C /* ChatList.swift */,
+				31A575401A49610700979C3A /* ChatList.swift */,
 			);
 			name = Chat;
 			path = /Users/rai/Documents/project/kdip/kdip/Chat;
@@ -2020,6 +2050,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3116507F1A42C4510027F563 /* XMPPvCardTempAdr.m in Sources */,
+				319BA8621A492CFE009E2E31 /* ModelChat.xcdatamodeld in Sources */,
 				3116509D1A42C4510027F563 /* XMPPMessageArchiving.m in Sources */,
 				311650C61A42C4510027F563 /* NSString+DDXML.m in Sources */,
 				3116507A1A42C4510027F563 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
@@ -2065,8 +2096,8 @@
 				311650951A42C4510027F563 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				313084061A47B61D00DC25DC /* JSQMessagesAvatarImage.m in Sources */,
 				313083FD1A47B61D00DC25DC /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,
+				31EC16201A4965F3007ADB60 /* FriendList.swift in Sources */,
 				311650A31A42C4510027F563 /* XMPPBlocking.m in Sources */,
-				312066F81A4808A8008F518C /* ChatList.swift in Sources */,
 				311650551A42C4510027F563 /* XMPPFileTransfer.m in Sources */,
 				3116506D1A42C4510027F563 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				313084031A47B61D00DC25DC /* JSQLocationMediaItem.m in Sources */,
@@ -2171,11 +2202,13 @@
 				311650C11A42C4510027F563 /* DDTTYLogger.m in Sources */,
 				31B919351A47E7AB006A934F /* Login_ViewController.swift in Sources */,
 				311650531A42C4510027F563 /* XMPPBandwidthMonitor.m in Sources */,
+				31A575411A49610700979C3A /* ChatList.swift in Sources */,
 				311650651A42C4510027F563 /* XMPPIQ+JabberRPC.m in Sources */,
 				3130847E1A47B6A300DC25DC /* JSQSystemSoundPlayer.m in Sources */,
 				3116503F1A42C4510027F563 /* XMPPAnonymousAuthentication.m in Sources */,
 				3130840F1A47B61D00DC25DC /* JSQMessagesCollectionViewCellOutgoing.m in Sources */,
 				311650A71A42C4510027F563 /* XMPPAutoPing.m in Sources */,
+				319BA85D1A4905E9009E2E31 /* XMPPSIFileTransfer.m in Sources */,
 				311650B81A42C4510027F563 /* XMPPIDTracker.m in Sources */,
 				311650BE1A42C4510027F563 /* DDASLLogger.m in Sources */,
 				3116508A1A42C4510027F563 /* TURNSocket.m in Sources */,
@@ -2198,6 +2231,7 @@
 				311650931A42C4510027F563 /* NSString+XEP_0106.m in Sources */,
 				31164AA71A42BC720027F563 /* AppDelegate.swift in Sources */,
 				311650B01A42C4510027F563 /* XMPPMessageCarbons.m in Sources */,
+				31EC161F1A4965F3007ADB60 /* Conversation.swift in Sources */,
 				313084081A47B61D00DC25DC /* JSQPhotoMediaItem.m in Sources */,
 				311650C41A42C4510027F563 /* DDMultiFormatter.m in Sources */,
 				311650AE1A42C4510027F563 /* XMPPMessage+XEP_0224.m in Sources */,
@@ -2491,6 +2525,16 @@
 			);
 			currentVersion = 31164FBD1A42C4510027F563 /* XMPPMessageArchiving.xcdatamodel */;
 			path = XMPPMessageArchiving.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */,
+			);
+			currentVersion = 319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */;
+			path = ModelChat.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

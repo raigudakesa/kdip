@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate, XMPPOutgoingFileTransferDelegate {
 
     var window: UIWindow?
     var chatDelegate: ChatDelegate?
@@ -23,7 +23,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     var xmppReconnect: XMPPReconnect!
     var password: String = ""
     var isConnectionOpen: Bool = false
-
+    
+    // CORE DATA ====================================>
+    
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.jqsoftware.MyLog" in the application's documents Application Support directory.
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        return urls[urls.count-1] as NSURL
+    }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // Create the coordinator and store
+        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("ModelChat.sqlite")
+        var error: NSError? = nil
+        var failureReason = "There was an error creating or loading the application's saved data."
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+            coordinator = nil
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSUnderlyingErrorKey] = error
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            abort()
+        }
+        
+        return coordinator
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext? = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        if coordinator == nil {
+            return nil
+        }
+        
+        var managedObjectContext = NSManagedObjectContext()
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    func saveContext () {
+        if let moc = self.managedObjectContext {
+            var error: NSError? = nil
+            if moc.hasChanges && !moc.save(&error) {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                NSLog("Unresolved error \(error), \(error!.userInfo)")
+                abort()
+            }
+        }
+    }
+    
+    // END CORE DATA =========================================>
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         self.onXMPPFirstInit()
@@ -50,9 +114,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        self.saveContext()
     }
     
+    // =========================================================
     // XMPP Receiver Module
+    // =========================================================
     func onXMPPFirstInit()
     {
         self.xmppStream = XMPPStream()
@@ -80,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         var error: NSError?
         var data: NSData?
         
-        self.xmppStream.myJID = XMPPJID.jidWithString(jabberID);
+        self.xmppStream.myJID = XMPPJID.jidWithString(jabberID+"/kdip");
         self.password = password
         self.xmppStream.connectWithTimeout(XMPPStreamTimeoutNone, error: &error)
     }
@@ -109,30 +176,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         presence.addChild(status)
         xmppStream!.sendElement(presence)
         
+        //Check Friend List Core Data
+        let friendList = NSFetchRequest(entityName: "FriendList")
+        if let friendResults = managedObjectContext!.executeFetchRequest(friendList, error: nil) as? [FriendList] {
+            if friendResults.count <= 0 {
+                var iq = XMPPIQ();
+                var query = DDXMLElement.elementWithName("query") as DDXMLElement
+                iq.addAttributeWithName("from", stringValue: "\(sender.myJID)")
+                iq.addAttributeWithName("id", stringValue: "friendlistrequest")
+                iq.addAttributeWithName("type", stringValue: "get")
+                
+                query.addAttributeWithName("xmlns", stringValue: "jabber:iq:roster")
+                
+                iq.addChild(query)
+                xmppStream.sendElement(iq)
+            }
+        }
+        
         // Test VCard
-        var iq = XMPPIQ()
-        iq.addAttributeWithName("from", stringValue: "\(sender.myJID)")
-        iq.addAttributeWithName("type", stringValue: "get")
-        iq.addAttributeWithName("id", stringValue: "adit@vb.icbali.com")
-        var vcard = DDXMLElement.elementWithName("vcard") as DDXMLElement
-        vcard.addAttributeWithName("xmlns", stringValue: "vcard-temp")
-//        var query = DDXMLElement.elementWithName("query") as DDXMLElement
-//        query.addAttributeWithName("xmlns", stringValue: "jabber:iq:roster")
-        iq.addChild(vcard)
-        xmppStream.sendElement(iq)
+//        var iq = XMPPIQ()
+//        iq.addAttributeWithName("from", stringValue: "\(sender.myJID)")
+//        iq.addAttributeWithName("type", stringValue: "get")
+//        iq.addAttributeWithName("id", stringValue: "adit@vb.icbali.com")
+//        var vcard = DDXMLElement.elementWithName("vcard") as DDXMLElement
+//        vcard.addAttributeWithName("xmlns", stringValue: "vcard-temp")
+//        iq.addChild(vcard)
+//        xmppStream.sendElement(iq)
+        
+        // Test File Transfer
+//        var filesend_queue = dispatch_queue_create("fileTransfer", nil)
+//        var ft = XMPPOutgoingFileTransfer(dispatchQueue: filequeue)
+//        var err:NSError?
+//        ft.activate(xmppStream)
+//        ft.addDelegate(self, delegateQueue: filesend_queue)
+//        ft.sendData(NSData(base64EncodedString: imgdata, options: nil), named: "img.jpg", toRecipient: XMPPJID.jidWithString("adit@vb.icbali.com/iuvencas-iMac"), description: "Gambar Doang.", error: &err)
+//        println(err)
     }
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         let mesg = message.elementForName("body");
-        println("Message : \(message)")
+        println("Message : \(message)\n")
         if mesg != nil {
+            let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
+            
+            ChatIn.groupid = "-1"
+            ChatIn.message = mesg.stringValue()
+            ChatIn.type = 1
+            ChatIn.jid = splitJabberId("\(message.from())")["accountName"]!
+            ChatIn.date = NSDate()
+            
+            self.saveContext()
+            
             self.chatDelegate?.chatDelegate!(didMessageReceived: mesg.stringValue())
         }
         
     }
     
+    func splitJabberId(jid: String) -> [String:String]
+    {
+        var splitJid = split(jid) {$0 == "/"}
+        var splitAccount = split(splitJid[0]) {$0 == "@"}
+        if splitAccount.count > 1 {
+            return ["accountName":splitAccount[0], "hostname":splitAccount[splitAccount.count-1], "resource":splitJid[1]]
+        }
+        return ["accountName":splitAccount[0], "hostname":splitAccount[1], "resource":splitJid[1]]
+    }
+    
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {
-        println("Receive Presence : \(presence)")
+        //println("Receive Presence : \(presence)")
         
         if presence.attributeStringValueForName("type") != nil {
             switch presence.attributeStringValueForName("type") {
@@ -145,18 +256,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     }
     
     func xmppStream(sender: XMPPStream!, didSendPresence presence: XMPPPresence!) {
-        println("Sended Presence : \(presence)")
+        //println("Sended Presence : \(presence)")
     }
     
     func xmppRoster(sender: XMPPRoster!, didReceiveRosterItem item: DDXMLElement!) {
-        println("ROSTER ITEM: \(item)")
+        //println("ROSTER ITEM: \(item)")
     }
     
     func xmppStream(sender: XMPPStream!, didReceiveIQ iq: XMPPIQ!) -> AnyObject! {
         println("IQ: \(iq)")
         return nil
     }
-
+    
+    //==========================
+    // File Transfer Section
+    //==========================
+    func xmppOutgoingFileTransferDidSucceed(sender: XMPPOutgoingFileTransfer!) {
+        println("Success Transfering File")
+    }
+    
+    func xmppOutgoingFileTransfer(sender: XMPPOutgoingFileTransfer!, didFailWithError error: NSError!) {
+        println("Failed Transfering File")
+    }
 
 }
 
