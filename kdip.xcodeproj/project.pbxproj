@@ -220,6 +220,9 @@
 		31D94FA41A440592003718BB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D94FA31A440592003718BB /* Message.swift */; };
 		31EC161F1A4965F3007ADB60 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161D1A4965F3007ADB60 /* Conversation.swift */; };
 		31EC16201A4965F3007ADB60 /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161E1A4965F3007ADB60 /* FriendList.swift */; };
+		C97CC81B1A490DC1006AEC74 /* Timeline_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */; };
+		C97CC81D1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CC81C1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift */; };
+		C97CC81F1A490ECA006AEC74 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CC81E1A490ECA006AEC74 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -671,12 +674,15 @@
 		31A575401A49610700979C3A /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		31B919331A47D5F2006A934F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		31B919341A47E7AB006A934F /* Login_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
-		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = /Users/rai/Documents/project/kdip/kdip/Delegate/ChatDelegate.swift; sourceTree = "<absolute>"; };
+		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = /Users/adit/Gawe/project/kdip/kdip/Delegate/ChatDelegate.swift; sourceTree = "<absolute>"; };
 		31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		31D94FA31A440592003718BB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
+		C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_ViewController.swift; path = Timeline/Timeline_ViewController.swift; sourceTree = "<group>"; };
+		C97CC81C1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_CollectionViewCell.swift; path = Timeline/Timeline_CollectionViewCell.swift; sourceTree = "<group>"; };
+		C97CC81E1A490ECA006AEC74 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardView.swift; path = Timeline/CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -732,6 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				319BA8631A492E19009E2E31 /* CoreData */,
+				C97CC8191A490D74006AEC74 /* Timeline */,
 				31BE9DDD1A47FCA200BA00FA /* Chat */,
 				31BE9DDC1A47FC9B00BA00FA /* Friends */,
 				31B919361A47EB91006A934F /* Delegate */,
@@ -785,7 +792,7 @@
 				31164CC51A42C3320027F563 /* XMPPFramework */,
 			);
 			name = Framework;
-			path = /Users/rai/Documents/project/kdip/Framework;
+			path = /Users/adit/Gawe/project/kdip/Framework;
 			sourceTree = "<absolute>";
 		};
 		31164CC51A42C3320027F563 /* XMPPFramework */ = {
@@ -800,7 +807,7 @@
 				311650141A42C4510027F563 /* Vendor */,
 			);
 			name = XMPPFramework;
-			path = /Users/rai/Documents/project/kdip/Framework/XMPPFramework;
+			path = /Users/adit/Gawe/project/kdip/Framework/XMPPFramework;
 			sourceTree = "<absolute>";
 		};
 		31164ECF1A42C4510027F563 /* Authentication */ = {
@@ -1856,7 +1863,7 @@
 				31B919371A47EBBB006A934F /* ChatDelegate.swift */,
 			);
 			name = Delegate;
-			path = /Users/rai/Documents/project/kdip/kdip/Delegate;
+			path = /Users/adit/Gawe/project/kdip/kdip/Delegate;
 			sourceTree = "<absolute>";
 		};
 		31BE9DDC1A47FC9B00BA00FA /* Friends */ = {
@@ -1874,7 +1881,7 @@
 				31A575401A49610700979C3A /* ChatList.swift */,
 			);
 			name = Chat;
-			path = /Users/rai/Documents/project/kdip/kdip/Chat;
+			path = /Users/adit/Gawe/project/kdip/kdip/Chat;
 			sourceTree = "<absolute>";
 		};
 		31BE9DFD1A4805C300BA00FA /* Products */ = {
@@ -1901,6 +1908,16 @@
 				311650D21A42CF1E0027F563 /* Security.framework */,
 			);
 			name = SDKFramework;
+			sourceTree = "<group>";
+		};
+		C97CC8191A490D74006AEC74 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */,
+				C97CC81C1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift */,
+				C97CC81E1A490ECA006AEC74 /* CardView.swift */,
+			);
+			name = Timeline;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2147,6 +2164,7 @@
 				313083FC1A47B61D00DC25DC /* JSQMessagesBubbleImageFactory.m in Sources */,
 				311650A91A42C4510027F563 /* XMPPAutoTime.m in Sources */,
 				313084011A47B61D00DC25DC /* JSQMessagesCollectionViewFlowLayoutInvalidationContext.m in Sources */,
+				C97CC81D1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift in Sources */,
 				3116507D1A42C4510027F563 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				311650691A42C4510027F563 /* XMPPLastActivity.m in Sources */,
 				311650961A42C4510027F563 /* XMPPCapsCoreDataStorageObject.m in Sources */,
@@ -2237,6 +2255,8 @@
 				311650AE1A42C4510027F563 /* XMPPMessage+XEP_0224.m in Sources */,
 				3116509B1A42C4510027F563 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				311650BF1A42C4510027F563 /* DDFileLogger.m in Sources */,
+				C97CC81F1A490ECA006AEC74 /* CardView.swift in Sources */,
+				C97CC81B1A490DC1006AEC74 /* Timeline_ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
