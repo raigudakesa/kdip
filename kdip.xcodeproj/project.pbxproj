@@ -670,16 +670,16 @@
 		3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQSystemSoundPlayer.m; path = Classes/JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
 		319BA85B1A4905E9009E2E31 /* XMPPSIFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSIFileTransfer.h; sourceTree = "<group>"; };
 		319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPSIFileTransfer.m; sourceTree = "<group>"; };
-		319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelChat.xcdatamodel; sourceTree = "<group>"; };
+		319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = ModelChat.xcdatamodel; path = kdip/CoreData/ModelChat.xcdatamodeld/ModelChat.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		31A575401A49610700979C3A /* ChatList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		31B919331A47D5F2006A934F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		31B919341A47E7AB006A934F /* Login_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
-		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = /Users/adit/Gawe/project/kdip/kdip/Delegate/ChatDelegate.swift; sourceTree = "<absolute>"; };
+		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = kdip/Delegate/ChatDelegate.swift; sourceTree = SOURCE_ROOT; };
 		31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		31D94FA31A440592003718BB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
-		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
+		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conversation.swift; path = kdip/CoreData/Conversation.swift; sourceTree = SOURCE_ROOT; };
+		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendList.swift; path = kdip/CoreData/FriendList.swift; sourceTree = SOURCE_ROOT; };
 		C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_ViewController.swift; path = Timeline/Timeline_ViewController.swift; sourceTree = "<group>"; };
 		C97CC81C1A490E6D006AEC74 /* Timeline_CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_CollectionViewCell.swift; path = Timeline/Timeline_CollectionViewCell.swift; sourceTree = "<group>"; };
 		C97CC81E1A490ECA006AEC74 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardView.swift; path = Timeline/CardView.swift; sourceTree = "<group>"; };
@@ -791,9 +791,8 @@
 				31D94FA21A43EF3A003718BB /* SDKFramework */,
 				31164CC51A42C3320027F563 /* XMPPFramework */,
 			);
-			name = Framework;
-			path = /Users/adit/Gawe/project/kdip/Framework;
-			sourceTree = "<absolute>";
+			path = Framework;
+			sourceTree = SOURCE_ROOT;
 		};
 		31164CC51A42C3320027F563 /* XMPPFramework */ = {
 			isa = PBXGroup;
@@ -807,8 +806,8 @@
 				311650141A42C4510027F563 /* Vendor */,
 			);
 			name = XMPPFramework;
-			path = /Users/adit/Gawe/project/kdip/Framework/XMPPFramework;
-			sourceTree = "<absolute>";
+			path = Framework/XMPPFramework;
+			sourceTree = SOURCE_ROOT;
 		};
 		31164ECF1A42C4510027F563 /* Authentication */ = {
 			isa = PBXGroup;
@@ -1854,8 +1853,9 @@
 				31EC161E1A4965F3007ADB60 /* FriendList.swift */,
 				319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */,
 			);
-			path = CoreData;
-			sourceTree = "<group>";
+			name = CoreData;
+			path = kdip/CoreData;
+			sourceTree = SOURCE_ROOT;
 		};
 		31B919361A47EB91006A934F /* Delegate */ = {
 			isa = PBXGroup;
@@ -1863,8 +1863,8 @@
 				31B919371A47EBBB006A934F /* ChatDelegate.swift */,
 			);
 			name = Delegate;
-			path = /Users/adit/Gawe/project/kdip/kdip/Delegate;
-			sourceTree = "<absolute>";
+			path = kdip/Delegate;
+			sourceTree = SOURCE_ROOT;
 		};
 		31BE9DDC1A47FC9B00BA00FA /* Friends */ = {
 			isa = PBXGroup;
@@ -1881,8 +1881,8 @@
 				31A575401A49610700979C3A /* ChatList.swift */,
 			);
 			name = Chat;
-			path = /Users/adit/Gawe/project/kdip/kdip/Chat;
-			sourceTree = "<absolute>";
+			path = kdip/Chat;
+			sourceTree = SOURCE_ROOT;
 		};
 		31BE9DFD1A4805C300BA00FA /* Products */ = {
 			isa = PBXGroup;
