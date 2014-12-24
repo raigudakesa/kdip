@@ -3,6 +3,7 @@
     <entity name="Conversation" representedClassName="kdip.Conversation" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="groupid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isuser" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="jid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -14,7 +15,7 @@
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Conversation" positionX="241" positionY="-90" width="128" height="118"/>
+        <element name="Conversation" positionX="241" positionY="-90" width="128" height="135"/>
         <element name="FriendList" positionX="18" positionY="-85" width="128" height="103"/>
     </elements>
 </model>

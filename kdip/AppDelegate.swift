@@ -11,9 +11,12 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate, XMPPOutgoingFileTransferDelegate {
-
-    var window: UIWindow?
+    
     var chatDelegate: ChatDelegate?
+    var chatListDelegate: ChatDelegate?
+    var chatSingleDelegate: ChatDelegate?
+    
+    var window: UIWindow?
     
     // XMPP Variables
     var xmppStream: XMPPStream!
@@ -163,8 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func xmppStreamDidAuthenticate(sender: XMPPStream!) {
         println("Authenticated")
-        
-        self.chatDelegate?.chatDelegate!(didLogin: true, jid: "\(sender.myJID)", name: "\(sender.myJID)")
+        self.chatDelegate(didLogin: true, jid: "\(sender.myJID)", name: "\(sender.myJID)")
         
         // SET User Presence to Online
         var presence = XMPPPresence()
@@ -224,12 +226,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
             ChatIn.type = 1
             ChatIn.jid = splitJabberId("\(message.from())")["accountName"]!
             ChatIn.date = NSDate()
+            ChatIn.isuser = false
             
             self.saveContext()
-            
-            self.chatDelegate?.chatDelegate!(didMessageReceived: mesg.stringValue())
+
+            self.chatDelegate(ChatIn.jid, senderName: ChatIn.jid, didMessageReceived: ChatIn.message, date: ChatIn.date)
         }
         
+    }
+    
+    func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!) {
+        println(message)
     }
     
     func splitJabberId(jid: String) -> [String:String]
@@ -266,6 +273,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     func xmppStream(sender: XMPPStream!, didReceiveIQ iq: XMPPIQ!) -> AnyObject! {
         println("IQ: \(iq)")
         return nil
+    }
+    
+    //==========================
+    // Chat Delegate
+    //==========================
+    func chatDelegate(didBuddyListReceived buddylist: NSMutableArray) {
+        self.chatDelegate?.chatDelegate?(didBuddyListReceived: buddylist)
+    }
+    func chatDelegate(didLogin isLogin: Bool, jid: String, name: String) {
+        self.chatDelegate?.chatDelegate?(didLogin: isLogin, jid: jid, name: name)
+    }
+    func chatDelegate(senderId: String, senderName: String, didMessageReceived message: String, date: NSDate) {
+        self.chatListDelegate?.chatDelegate?(senderId, senderName: senderName, didMessageReceived: message, date: date)
+        self.chatSingleDelegate?.chatDelegate?(senderId, senderName: senderName, didMessageReceived: message, date: date)
+    }
+    func chatDelegate(senderId: String, senderName: String, didMultimediaReceived data: String, date: NSDate) {
+        self.chatListDelegate?.chatDelegate?(senderId, senderName: senderName, didMultimediaReceived: data, date: date)
+        self.chatSingleDelegate?.chatDelegate?(senderId, senderName: senderName, didMultimediaReceived: data, date: date)
     }
     
     //==========================

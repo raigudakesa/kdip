@@ -14,8 +14,6 @@
 		<string>https://github.com/Alamofire/Alamofire.git</string>
 		<key>7B47D3CB2188A83B7A10795CB3695D3D43EF1B66</key>
 		<string>https://github.com/raigudakesa/kdip.git</string>
-		<key>C4C366BC493063B3F58A8AF1BFD97BED0CF44463</key>
-		<string>https://github.com/putudondo/room.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>kdip.xcodeproj</string>
@@ -25,8 +23,11 @@
 		<string>../../../room/Alamofire</string>
 		<key>7B47D3CB2188A83B7A10795CB3695D3D43EF1B66</key>
 		<string>../..</string>
-		<key>C4C366BC493063B3F58A8AF1BFD97BED0CF44463</key>
-		<string>../../../room</string>
+	</dict>
+	<key>IDESourceControlProjectRequiredConfigurationsDictionary</key>
+	<dict>
+		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
+		<true/>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/raigudakesa/kdip.git</string>
@@ -51,14 +52,6 @@
 			<string>7B47D3CB2188A83B7A10795CB3695D3D43EF1B66</string>
 			<key>IDESourceControlWCCName</key>
 			<string>kdip</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C4C366BC493063B3F58A8AF1BFD97BED0CF44463</string>
-			<key>IDESourceControlWCCName</key>
-			<string>room</string>
 		</dict>
 	</array>
 </dict>

@@ -16,5 +16,5 @@ class Conversation: NSManagedObject {
     @NSManaged var message: String
     @NSManaged var type: NSNumber
     @NSManaged var date: NSDate
-
+    @NSManaged var isuser: Bool
 }

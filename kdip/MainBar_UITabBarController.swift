@@ -8,11 +8,12 @@
 
 import UIKit
 
-class MainBar_UITabBarController: UITabBarController {
+class MainBar_UITabBarController: UITabBarController, ChatDelegate {
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,7 +21,6 @@ class MainBar_UITabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

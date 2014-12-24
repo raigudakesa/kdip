@@ -9,7 +9,11 @@
 import UIKit
 
 class ChatList_TableViewCell: UITableViewCell {
-
+    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var lastMessage: UILabel!
+    @IBOutlet weak var lastDate: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

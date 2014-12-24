@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31164AA71A42BC720027F563 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31164AA61A42BC720027F563 /* AppDelegate.swift */; };
-		31164AA91A42BC720027F563 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31164AA81A42BC720027F563 /* ViewController.swift */; };
+		31164AA91A42BC720027F563 /* SingleChat_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */; };
 		31164AAC1A42BC720027F563 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31164AAA1A42BC720027F563 /* Main.storyboard */; };
 		31164AAE1A42BC720027F563 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31164AAD1A42BC720027F563 /* Images.xcassets */; };
 		31164AB11A42BC720027F563 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31164AAF1A42BC720027F563 /* LaunchScreen.xib */; };
@@ -217,7 +217,6 @@
 		31B919351A47E7AB006A934F /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B919341A47E7AB006A934F /* Login_ViewController.swift */; };
 		31B919381A47EBBB006A934F /* ChatDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B919371A47EBBB006A934F /* ChatDelegate.swift */; };
 		31BE9DF21A4802B400BA00FA /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */; };
-		31D94FA41A440592003718BB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D94FA31A440592003718BB /* Message.swift */; };
 		31EC161F1A4965F3007ADB60 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161D1A4965F3007ADB60 /* Conversation.swift */; };
 		31EC16201A4965F3007ADB60 /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC161E1A4965F3007ADB60 /* FriendList.swift */; };
 		C97CC81B1A490DC1006AEC74 /* Timeline_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */; };
@@ -253,7 +252,7 @@
 		31164AA11A42BC720027F563 /* kdip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kdip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31164AA51A42BC720027F563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31164AA61A42BC720027F563 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		31164AA81A42BC720027F563 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingleChat_ViewController.swift; path = ../SingleChat_ViewController.swift; sourceTree = "<group>"; };
 		31164AAB1A42BC720027F563 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31164AAD1A42BC720027F563 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		31164AB01A42BC720027F563 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -677,7 +676,6 @@
 		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = kdip/Delegate/ChatDelegate.swift; sourceTree = SOURCE_ROOT; };
 		31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		31D94FA31A440592003718BB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conversation.swift; path = kdip/CoreData/Conversation.swift; sourceTree = SOURCE_ROOT; };
 		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendList.swift; path = kdip/CoreData/FriendList.swift; sourceTree = SOURCE_ROOT; };
 		C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_ViewController.swift; path = Timeline/Timeline_ViewController.swift; sourceTree = "<group>"; };
@@ -744,8 +742,6 @@
 				31B919361A47EB91006A934F /* Delegate */,
 				311650D11A42C8400027F563 /* kdip-Bridging-Header.h */,
 				31164AA61A42BC720027F563 /* AppDelegate.swift */,
-				31164AA81A42BC720027F563 /* ViewController.swift */,
-				31D94FA31A440592003718BB /* Message.swift */,
 				31B919341A47E7AB006A934F /* Login_ViewController.swift */,
 				312066F91A480B62008F518C /* MainBar_UITabBarController.swift */,
 				31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */,
@@ -1876,6 +1872,7 @@
 		31BE9DDD1A47FCA200BA00FA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */,
 				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
 				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
 				31A575401A49610700979C3A /* ChatList.swift */,
@@ -2101,10 +2098,9 @@
 				3116506E1A42C4510027F563 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				311650AA1A42C4510027F563 /* XMPPTime.m in Sources */,
 				311650741A42C4510027F563 /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
-				31D94FA41A440592003718BB /* Message.swift in Sources */,
 				313084091A47B61D00DC25DC /* JSQVideoMediaItem.m in Sources */,
 				311650591A42C4510027F563 /* XMPPProcessOne.m in Sources */,
-				31164AA91A42BC720027F563 /* ViewController.swift in Sources */,
+				31164AA91A42BC720027F563 /* SingleChat_ViewController.swift in Sources */,
 				311650661A42C4510027F563 /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				311650981A42C4510027F563 /* XMPPCapabilities.m in Sources */,
 				311650AF1A42C4510027F563 /* XMPPMessage+XEP_0280.m in Sources */,
