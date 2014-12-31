@@ -39,7 +39,7 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate {
         var fetchRequest = NSFetchRequest()
         let entity = NSEntityDescription.entityForName("Conversation", inManagedObjectContext: managedObjectContext!)
         var sortbyDate = NSSortDescriptor(key: "date", ascending: true)
-        var predicate = NSPredicate(format: "jid = %@", argumentArray: [receiverId])
+        var predicate = NSPredicate(format: "jid = %@", argumentArray: [self.receiverId])
         fetchRequest.entity = entity
         fetchRequest.predicate = predicate
         
@@ -48,10 +48,14 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate {
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &err) as? [Conversation] {
             for (var i=0;i<fetchResults.count;i++)
             {
-                self.msg.addObject(JSQMessage(senderId: fetchResults[i].jid, senderDisplayName: fetchResults[i].jid, date: fetchResults[i].date, text: fetchResults[i].message))
+                if fetchResults[i].isuser == true {
+                    self.msg.addObject(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: fetchResults[i].date, text: fetchResults[i].message))
+                }else{
+                    self.msg.addObject(JSQMessage(senderId: fetchResults[i].jid, senderDisplayName: fetchResults[i].jid, date: fetchResults[i].date, text: fetchResults[i].message))
+                }
             }
         }
-
+        
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
@@ -72,6 +76,20 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate {
         self.msg.addObject(JSQMessage(senderId: senderId, senderDisplayName: senderName, date: date, text: message))
         self.finishReceivingMessageAnimated(true)
     }
+    
+    func chatDelegate(senderId: String, senderName: String, didReceiveChatState state: Int) {
+        if senderId == self.receiverId {
+            if state == 2 {
+                self.showTypingIndicator = true
+            }else{
+                self.showTypingIndicator = false
+            }
+            
+            self.scrollToBottomAnimated(true)
+        }
+    }
+    
+    //======================================================================
     
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {

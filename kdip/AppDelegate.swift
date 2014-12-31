@@ -145,6 +145,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         self.xmppStream.hostPort = 5222
     }
     
+    func getJabberID()->String
+    {
+        return splitJabberId("\(self.xmppStream.myJID)")["accountName"]!
+    }
+    
     func onBeginLogin(jabberID: String, password: String)
     {
         var error: NSError?
@@ -216,37 +221,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     }
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
-        let mesg = message.elementForName("body");
-        println("Message : \(message)\n")
-        if mesg != nil {
-            let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
-            
-            ChatIn.groupid = "-1"
-            ChatIn.message = mesg.stringValue()
-            ChatIn.type = 1
-            ChatIn.jid = splitJabberId("\(message.from())")["accountName"]!
-            ChatIn.date = NSDate()
-            ChatIn.isuser = false
-            
-            self.saveContext()
-
-            self.chatDelegate(ChatIn.jid, senderName: ChatIn.jid, didMessageReceived: ChatIn.message, date: ChatIn.date)
+        let jid = splitJabberId("\(message.from())")["accountName"]!
+        
+        for children in message.children()
+        {
+            switch children.name
+            {
+            case "body":
+                let mesg = message.elementForName(children.name)
+                let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
+                
+                ChatIn.groupid = "-1"
+                ChatIn.message = mesg.stringValue()
+                ChatIn.type = 1
+                ChatIn.jid = jid
+                ChatIn.date = NSDate()
+                ChatIn.isuser = false
+                
+                self.saveContext()
+                
+                self.chatDelegate(ChatIn.jid, senderName: ChatIn.jid, didMessageReceived: ChatIn.message, date: ChatIn.date)
+                break
+            case "composing":
+                self.chatDelegate(jid, senderName: jid, didReceiveChatState: 2)
+                break
+            case "paused":
+                self.chatDelegate(jid, senderName: jid, didReceiveChatState: 1)
+                break
+            case "active":
+                self.chatDelegate(jid, senderName: jid, didReceiveChatState: 0)
+                break
+            default:
+                break
+            }
         }
+
         
     }
     
     func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!) {
-        println(message)
+        //println("DIDSEND : \(message)")
+        let mesg = message.elementForName("body");
+        let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
+        if mesg != nil {
+            ChatIn.groupid = "-1"
+            ChatIn.message = mesg.stringValue()
+            ChatIn.type = 1
+            ChatIn.jid = splitJabberId("\(message.to())")["accountName"]!
+            ChatIn.date = NSDate()
+            ChatIn.isuser = true
+            self.saveContext()
+            
+            self.chatDelegate(1, target: ChatIn.jid, didMessageSend: ChatIn.message, date: ChatIn.date)
+            
+        }
+        
     }
     
     func splitJabberId(jid: String) -> [String:String]
     {
         var splitJid = split(jid) {$0 == "/"}
         var splitAccount = split(splitJid[0]) {$0 == "@"}
-        if splitAccount.count > 1 {
-            return ["accountName":splitAccount[0], "hostname":splitAccount[splitAccount.count-1], "resource":splitJid[1]]
+        var resource = ""
+        if splitJid.count > 1 {
+            resource = splitJid[1]
         }
-        return ["accountName":splitAccount[0], "hostname":splitAccount[1], "resource":splitJid[1]]
+        if splitAccount.count > 1 {
+            return ["accountName":splitAccount[0], "hostname":splitAccount[splitAccount.count-1], "resource":resource]
+        }
+        return ["accountName":splitAccount[0], "hostname":splitAccount[1], "resource":resource]
     }
     
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {
@@ -275,14 +318,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
         return nil
     }
     
+    func xmppStream(sender: XMPPStream!, didReceiveError error: DDXMLElement!) {
+        for children in error.children()
+        {
+            switch children.name
+            {
+            case "conflict":
+//                let alert = UIAlertController(title: "Warning", message: "Another devices logged in with this account", preferredStyle: UIAlertControllerStyle.Alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+//                self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func xmppStreamDidDisconnect(sender: XMPPStream!, withError error: NSError!) {
+        println("DISCONNECT : \(error)")
+    }
+    
     //==========================
     // Chat Delegate
     //==========================
+    
+    func chatDelegate(didAlertReceived alertCode: Int){
+        
+    }
     func chatDelegate(didBuddyListReceived buddylist: NSMutableArray) {
         self.chatDelegate?.chatDelegate?(didBuddyListReceived: buddylist)
     }
     func chatDelegate(didLogin isLogin: Bool, jid: String, name: String) {
         self.chatDelegate?.chatDelegate?(didLogin: isLogin, jid: jid, name: name)
+    }
+    func chatDelegate(senderId: String, senderName: String, didReceiveChatState state: Int) {
+        self.chatSingleDelegate?.chatDelegate?(senderId, senderName: senderName, didReceiveChatState: state)
+    }
+    func chatDelegate(type: Int, target: String, didMessageSend message: String, date: NSDate) {
+        self.chatListDelegate?.chatDelegate?(type, target: target, didMessageSend: message, date: date)
+        self.chatSingleDelegate?.chatDelegate?(type, target: target, didMessageSend: message, date: date)
     }
     func chatDelegate(senderId: String, senderName: String, didMessageReceived message: String, date: NSDate) {
         self.chatListDelegate?.chatDelegate?(senderId, senderName: senderName, didMessageReceived: message, date: date)

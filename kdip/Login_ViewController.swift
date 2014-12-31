@@ -14,11 +14,16 @@ class Login_ViewController: UIViewController, ChatDelegate {
     @IBOutlet weak var password: UITextField!
     
     var DelegateApp = UIApplication.sharedApplication().delegate as AppDelegate
+    var isLoad = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         DelegateApp.chatDelegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.isLoad = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +37,10 @@ class Login_ViewController: UIViewController, ChatDelegate {
     
     func chatDelegate(didLogin isLogin: Bool, jid: String, name: String) {
         if isLogin {
-            self.performSegueWithIdentifier("showMainTab", sender: self)
+            if !isLoad {
+                isLoad = true
+                self.performSegueWithIdentifier("showMainTab", sender: self)
+            }
         }
     }
     

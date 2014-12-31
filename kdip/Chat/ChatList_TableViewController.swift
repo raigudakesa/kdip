@@ -79,7 +79,6 @@ class ChatList_TableViewController: UITableViewController, ChatDelegate {
     }
     
     func chatDelegate(senderId: String, senderName: String, didMessageReceived message: String, date: NSDate) {
-        println("CHAT MASUK")
         self.loadChat()
         self.tableView.reloadData()
     }
@@ -148,9 +147,9 @@ class ChatList_TableViewController: UITableViewController, ChatDelegate {
             let controller = segue.destinationViewController as SingleChat_ViewController
             controller.receiverDisplayName = chatList[self.selectedCell.row].name
             controller.receiverId = chatList[self.selectedCell.row].jid
-            controller.senderId = "\(DelegateApp.xmppStream.myJID)"
-            controller.senderDisplayName = "\(DelegateApp.xmppStream.myJID)"
-            
+            controller.senderId = DelegateApp.getJabberID()
+            controller.senderDisplayName = DelegateApp.getJabberID()
+            controller.navigationItem.title = chatList[self.selectedCell.row].name
             controller.hidesBottomBarWhenPushed = true
             break
         default:
