@@ -93,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Util.copyFile("kdip.sqlite")
         self.onXMPPFirstInit()
         return true
     }

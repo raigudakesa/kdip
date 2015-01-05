@@ -12,3 +12,4 @@
 #import "XMPPIncomingFileTransfer.h"
 #import "JSQSystemSoundPlayer.h"
 #import "JSQMessages.h"
+#import "FMDB.h"

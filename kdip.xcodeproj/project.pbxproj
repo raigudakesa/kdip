@@ -167,6 +167,16 @@
 		312066F61A480878008F518C /* ChatList_TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F51A480878008F518C /* ChatList_TableViewController.swift */; };
 		312066FA1A480B62008F518C /* MainBar_UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066F91A480B62008F518C /* MainBar_UITabBarController.swift */; };
 		312066FC1A481400008F518C /* ChatList_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312066FB1A481400008F518C /* ChatList_TableViewCell.swift */; };
+		312204351A5A56910071709F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3122042B1A5A56910071709F /* FMDatabase.m */; };
+		312204361A5A56910071709F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3122042D1A5A56910071709F /* FMDatabaseAdditions.m */; };
+		312204371A5A56910071709F /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3122042F1A5A56910071709F /* FMDatabasePool.m */; };
+		312204381A5A56910071709F /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 312204311A5A56910071709F /* FMDatabaseQueue.m */; };
+		312204391A5A56910071709F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 312204341A5A56910071709F /* FMResultSet.m */; };
+		3122043B1A5A57330071709F /* CoreUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122043A1A5A57330071709F /* CoreUtility.swift */; };
+		312204401A5A6CCB0071709F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122043F1A5A6CCB0071709F /* ChatConversation.swift */; };
+		312204421A5A73B40071709F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 312204411A5A73B40071709F /* libsqlite3.0.dylib */; };
+		312204491A5A7EFD0071709F /* kdip.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 312204481A5A7EFD0071709F /* kdip.sqlite */; };
+		3122044B1A5A822C0071709F /* DTLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122044A1A5A822C0071709F /* DTLibs.swift */; };
 		313083F01A47B61D00DC25DC /* JSQMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */; };
 		313083F11A47B61D00DC25DC /* JSQMessages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313083871A47B61D00DC25DC /* JSQMessages.strings */; };
 		313083F21A47B61D00DC25DC /* JSQSystemSoundPlayer+JSQMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 313083991A47B61D00DC25DC /* JSQSystemSoundPlayer+JSQMessages.m */; };
@@ -211,6 +221,8 @@
 		313084191A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 313083EE1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.m */; };
 		3130841A1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313083EF1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib */; };
 		3130847E1A47B6A300DC25DC /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */; };
+		3137C2B41A56819000BC03DD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3137C2B11A56817800BC03DD /* Alamofire.framework */; };
+		3137C2B51A56819000BC03DD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3137C2B11A56817800BC03DD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		319BA85D1A4905E9009E2E31 /* XMPPSIFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */; };
 		319BA8621A492CFE009E2E31 /* ModelChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */; };
 		31A575411A49610700979C3A /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A575401A49610700979C3A /* ChatList.swift */; };
@@ -232,21 +244,52 @@
 			remoteGlobalIDString = 31164AA01A42BC720027F563;
 			remoteInfo = kdip;
 		};
-		31BE9E011A4805C300BA00FA /* PBXContainerItemProxy */ = {
+		3137C2B01A56817800BC03DD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */;
+			containerPortal = 3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
 			remoteInfo = Alamofire;
 		};
-		31BE9E031A4805C300BA00FA /* PBXContainerItemProxy */ = {
+		3137C2B21A56817800BC03DD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */;
+			containerPortal = 3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
 			remoteInfo = AlamofireTests;
 		};
+		3137C2B61A56819000BC03DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = Alamofire;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3137C2A81A567E8800BC03DD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3137C2B81A56819000BC03DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3137C2B51A56819000BC03DD /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		31164AA11A42BC720027F563 /* kdip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kdip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -566,6 +609,22 @@
 		312066F51A480878008F518C /* ChatList_TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewController.swift; sourceTree = "<group>"; };
 		312066F91A480B62008F518C /* MainBar_UITabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBar_UITabBarController.swift; sourceTree = "<group>"; };
 		312066FB1A481400008F518C /* ChatList_TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatList_TableViewCell.swift; sourceTree = "<group>"; };
+		3122042A1A5A56910071709F /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		3122042B1A5A56910071709F /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		3122042C1A5A56910071709F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		3122042D1A5A56910071709F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		3122042E1A5A56910071709F /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		3122042F1A5A56910071709F /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		312204301A5A56910071709F /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		312204311A5A56910071709F /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		312204321A5A56910071709F /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		312204331A5A56910071709F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		312204341A5A56910071709F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		3122043A1A5A57330071709F /* CoreUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreUtility.swift; sourceTree = "<group>"; };
+		3122043F1A5A6CCB0071709F /* ChatConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
+		312204411A5A73B40071709F /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		312204481A5A7EFD0071709F /* kdip.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kdip.sqlite; sourceTree = "<group>"; };
+		3122044A1A5A822C0071709F /* DTLibs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTLibs.swift; sourceTree = "<group>"; };
 		313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JSQMessagesAssets.bundle; sourceTree = "<group>"; };
 		313083881A47B61D00DC25DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/JSQMessages.strings; sourceTree = "<group>"; };
 		313083891A47B61D00DC25DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/JSQMessages.strings; sourceTree = "<group>"; };
@@ -667,6 +726,7 @@
 		313083EF1A47B61D00DC25DC /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		3130847C1A47B6A300DC25DC /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSQSystemSoundPlayer.h; path = Classes/JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQSystemSoundPlayer.m; path = Classes/JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
+		3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		319BA85B1A4905E9009E2E31 /* XMPPSIFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSIFileTransfer.h; sourceTree = "<group>"; };
 		319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPSIFileTransfer.m; sourceTree = "<group>"; };
 		319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = ModelChat.xcdatamodel; path = kdip/CoreData/ModelChat.xcdatamodeld/ModelChat.xcdatamodel; sourceTree = SOURCE_ROOT; };
@@ -675,7 +735,6 @@
 		31B919341A47E7AB006A934F /* Login_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		31B919371A47EBBB006A934F /* ChatDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatDelegate.swift; path = kdip/Delegate/ChatDelegate.swift; sourceTree = SOURCE_ROOT; };
 		31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		31EC161D1A4965F3007ADB60 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conversation.swift; path = kdip/CoreData/Conversation.swift; sourceTree = SOURCE_ROOT; };
 		31EC161E1A4965F3007ADB60 /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FriendList.swift; path = kdip/CoreData/FriendList.swift; sourceTree = SOURCE_ROOT; };
 		C97CC81A1A490DC1006AEC74 /* Timeline_ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timeline_ViewController.swift; path = Timeline/Timeline_ViewController.swift; sourceTree = "<group>"; };
@@ -688,6 +747,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312204421A5A73B40071709F /* libsqlite3.0.dylib in Frameworks */,
 				311650EB1A42D2EE0027F563 /* libresolv.dylib in Frameworks */,
 				311650EA1A42D2E70027F563 /* libxml2.dylib in Frameworks */,
 				311650E31A42CF5D0027F563 /* CoreData.framework in Frameworks */,
@@ -695,6 +755,7 @@
 				311650DF1A42CF4A0027F563 /* CFNetwork.framework in Frameworks */,
 				311650DB1A42CF390027F563 /* CoreGraphics.framework in Frameworks */,
 				311650D91A42CF320027F563 /* UIKit.framework in Frameworks */,
+				3137C2B41A56819000BC03DD /* Alamofire.framework in Frameworks */,
 				311650D71A42CF2C0027F563 /* Foundation.framework in Frameworks */,
 				311650D51A42CF240027F563 /* CoreLocation.framework in Frameworks */,
 				311650D31A42CF1E0027F563 /* Security.framework in Frameworks */,
@@ -715,7 +776,7 @@
 		31164A981A42BC720027F563 = {
 			isa = PBXGroup;
 			children = (
-				31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */,
+				3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */,
 				31164CC41A42C2E60027F563 /* Framework */,
 				31164AA31A42BC720027F563 /* kdip */,
 				31164AB91A42BC720027F563 /* kdipTests */,
@@ -745,6 +806,8 @@
 				31B919341A47E7AB006A934F /* Login_ViewController.swift */,
 				312066F91A480B62008F518C /* MainBar_UITabBarController.swift */,
 				31BE9DF11A4802B400BA00FA /* SwiftyJSON.swift */,
+				3122043A1A5A57330071709F /* CoreUtility.swift */,
+				3122044A1A5A822C0071709F /* DTLibs.swift */,
 				31164AAA1A42BC720027F563 /* Main.storyboard */,
 				31164AAD1A42BC720027F563 /* Images.xcassets */,
 				31164AAF1A42BC720027F563 /* LaunchScreen.xib */,
@@ -782,6 +845,8 @@
 		31164CC41A42C2E60027F563 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				312204411A5A73B40071709F /* libsqlite3.0.dylib */,
+				312204291A5A56910071709F /* fmdb */,
 				3130847A1A47B6A300DC25DC /* JSQSystemSoundPlayer */,
 				313083831A47B61D00DC25DC /* JSQMessagesViewController */,
 				31D94FA21A43EF3A003718BB /* SDKFramework */,
@@ -1668,6 +1733,33 @@
 			path = libidn;
 			sourceTree = "<group>";
 		};
+		312204291A5A56910071709F /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				3122042A1A5A56910071709F /* FMDatabase.h */,
+				3122042B1A5A56910071709F /* FMDatabase.m */,
+				3122042C1A5A56910071709F /* FMDatabaseAdditions.h */,
+				3122042D1A5A56910071709F /* FMDatabaseAdditions.m */,
+				3122042E1A5A56910071709F /* FMDatabasePool.h */,
+				3122042F1A5A56910071709F /* FMDatabasePool.m */,
+				312204301A5A56910071709F /* FMDatabaseQueue.h */,
+				312204311A5A56910071709F /* FMDatabaseQueue.m */,
+				312204321A5A56910071709F /* FMDB.h */,
+				312204331A5A56910071709F /* FMResultSet.h */,
+				312204341A5A56910071709F /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		3122043C1A5A6C6B0071709F /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				3122043F1A5A6CCB0071709F /* ChatConversation.swift */,
+			);
+			name = DataModel;
+			path = kdip/Chat/DataModel;
+			sourceTree = SOURCE_ROOT;
+		};
 		313083831A47B61D00DC25DC /* JSQMessagesViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1833,6 +1925,15 @@
 			path = JSQSystemSoundPlayer;
 			sourceTree = "<group>";
 		};
+		3137C2AC1A56817800BC03DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3137C2B11A56817800BC03DD /* Alamofire.framework */,
+				3137C2B31A56817800BC03DD /* AlamofireTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		319BA85A1A4905E9009E2E31 /* XEP-0096 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1872,6 +1973,8 @@
 		31BE9DDD1A47FCA200BA00FA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				312204481A5A7EFD0071709F /* kdip.sqlite */,
+				3122043C1A5A6C6B0071709F /* DataModel */,
 				31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */,
 				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
 				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
@@ -1880,15 +1983,6 @@
 			name = Chat;
 			path = kdip/Chat;
 			sourceTree = SOURCE_ROOT;
-		};
-		31BE9DFD1A4805C300BA00FA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				31BE9E021A4805C300BA00FA /* Alamofire.framework */,
-				31BE9E041A4805C300BA00FA /* AlamofireTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
 		};
 		31D94FA21A43EF3A003718BB /* SDKFramework */ = {
 			isa = PBXGroup;
@@ -1927,10 +2021,13 @@
 				31164A9D1A42BC720027F563 /* Sources */,
 				31164A9E1A42BC720027F563 /* Frameworks */,
 				31164A9F1A42BC720027F563 /* Resources */,
+				3137C2A81A567E8800BC03DD /* Embed App Extensions */,
+				3137C2B81A56819000BC03DD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3137C2B71A56819000BC03DD /* PBXTargetDependency */,
 			);
 			name = kdip;
 			productName = kdip;
@@ -1999,8 +2096,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 31BE9DFD1A4805C300BA00FA /* Products */;
-					ProjectRef = 31BE9DFC1A4805C300BA00FA /* Alamofire.xcodeproj */;
+					ProductGroup = 3137C2AC1A56817800BC03DD /* Products */;
+					ProjectRef = 3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2012,18 +2109,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		31BE9E021A4805C300BA00FA /* Alamofire.framework */ = {
+		3137C2B11A56817800BC03DD /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Alamofire.framework;
-			remoteRef = 31BE9E011A4805C300BA00FA /* PBXContainerItemProxy */;
+			remoteRef = 3137C2B01A56817800BC03DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		31BE9E041A4805C300BA00FA /* AlamofireTests.xctest */ = {
+		3137C2B31A56817800BC03DD /* AlamofireTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = AlamofireTests.xctest;
-			remoteRef = 31BE9E031A4805C300BA00FA /* PBXContainerItemProxy */;
+			remoteRef = 3137C2B21A56817800BC03DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2033,6 +2130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312204491A5A7EFD0071709F /* kdip.sqlite in Resources */,
 				311650CA1A42C4510027F563 /* build-libidn.sh in Resources */,
 				31164AAC1A42BC720027F563 /* Main.storyboard in Resources */,
 				31164AB11A42BC720027F563 /* LaunchScreen.xib in Resources */,
@@ -2103,6 +2201,7 @@
 				31164AA91A42BC720027F563 /* SingleChat_ViewController.swift in Sources */,
 				311650661A42C4510027F563 /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				311650981A42C4510027F563 /* XMPPCapabilities.m in Sources */,
+				312204351A5A56910071709F /* FMDatabase.m in Sources */,
 				311650AF1A42C4510027F563 /* XMPPMessage+XEP_0280.m in Sources */,
 				311650861A42C4510027F563 /* NSXMLElement+XEP_0059.m in Sources */,
 				313083F51A47B61D00DC25DC /* UIDevice+JSQMessages.m in Sources */,
@@ -2137,6 +2236,7 @@
 				311650791A42C4510027F563 /* XMPPvCard.xcdatamodeld in Sources */,
 				311650731A42C4510027F563 /* XMPPRoomMemoryStorage.m in Sources */,
 				311650411A42C4510027F563 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				3122044B1A5A822C0071709F /* DTLibs.swift in Sources */,
 				311650AB1A42C4510027F563 /* NSXMLElement+XEP_0203.m in Sources */,
 				311650A51A42C4510027F563 /* XMPPStreamManagementStanzas.m in Sources */,
 				3116509A1A42C4510027F563 /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
@@ -2146,6 +2246,7 @@
 				311650A61A42C4510027F563 /* XMPPStreamManagement.m in Sources */,
 				313084131A47B61D00DC25DC /* JSQMessagesLabel.m in Sources */,
 				311650C01A42C4510027F563 /* DDLog.m in Sources */,
+				312204391A5A56910071709F /* FMResultSet.m in Sources */,
 				3116504F1A42C4510027F563 /* XMPPModule.m in Sources */,
 				311650781A42C4510027F563 /* XMPPRoom.m in Sources */,
 				311650721A42C4510027F563 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
@@ -2181,6 +2282,7 @@
 				313083F71A47B61D00DC25DC /* UIView+JSQMessages.m in Sources */,
 				311650BD1A42C4510027F563 /* DDAbstractDatabaseLogger.m in Sources */,
 				3116508E1A42C4510027F563 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
+				312204361A5A56910071709F /* FMDatabaseAdditions.m in Sources */,
 				311650901A42C4510027F563 /* XMPPMessage+XEP_0085.m in Sources */,
 				313084041A47B61D00DC25DC /* JSQMediaItem.m in Sources */,
 				311650AD1A42C4510027F563 /* XMPPAttentionModule.m in Sources */,
@@ -2213,10 +2315,12 @@
 				313084121A47B61D00DC25DC /* JSQMessagesInputToolbar.m in Sources */,
 				311650491A42C4510027F563 /* NSXMLElement+XMPP.m in Sources */,
 				313083F21A47B61D00DC25DC /* JSQSystemSoundPlayer+JSQMessages.m in Sources */,
+				312204401A5A6CCB0071709F /* ChatConversation.swift in Sources */,
 				311650C11A42C4510027F563 /* DDTTYLogger.m in Sources */,
 				31B919351A47E7AB006A934F /* Login_ViewController.swift in Sources */,
 				311650531A42C4510027F563 /* XMPPBandwidthMonitor.m in Sources */,
 				31A575411A49610700979C3A /* ChatList.swift in Sources */,
+				3122043B1A5A57330071709F /* CoreUtility.swift in Sources */,
 				311650651A42C4510027F563 /* XMPPIQ+JabberRPC.m in Sources */,
 				3130847E1A47B6A300DC25DC /* JSQSystemSoundPlayer.m in Sources */,
 				3116503F1A42C4510027F563 /* XMPPAnonymousAuthentication.m in Sources */,
@@ -2224,6 +2328,7 @@
 				311650A71A42C4510027F563 /* XMPPAutoPing.m in Sources */,
 				319BA85D1A4905E9009E2E31 /* XMPPSIFileTransfer.m in Sources */,
 				311650B81A42C4510027F563 /* XMPPIDTracker.m in Sources */,
+				312204381A5A56910071709F /* FMDatabaseQueue.m in Sources */,
 				311650BE1A42C4510027F563 /* DDASLLogger.m in Sources */,
 				3116508A1A42C4510027F563 /* TURNSocket.m in Sources */,
 				311650541A42C4510027F563 /* XMPPCoreDataStorage.m in Sources */,
@@ -2234,6 +2339,7 @@
 				3130840B1A47B61D00DC25DC /* JSQMessagesCollectionView.m in Sources */,
 				313084161A47B61D00DC25DC /* JSQMessagesMediaPlaceholderView.m in Sources */,
 				311650521A42C4510027F563 /* XMPPStream.m in Sources */,
+				312204371A5A56910071709F /* FMDatabasePool.m in Sources */,
 				311650881A42C4510027F563 /* XMPPIQ+XEP_0060.m in Sources */,
 				3116506C1A42C4510027F563 /* XMPPRoomCoreDataStorage.m in Sources */,
 				313084111A47B61D00DC25DC /* JSQMessagesComposerTextView.m in Sources */,
@@ -2271,6 +2377,11 @@
 			isa = PBXTargetDependency;
 			target = 31164AA01A42BC720027F563 /* kdip */;
 			targetProxy = 31164AB71A42BC720027F563 /* PBXContainerItemProxy */;
+		};
+		3137C2B71A56819000BC03DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			targetProxy = 3137C2B61A56819000BC03DD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2407,6 +2518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = kdip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2424,6 +2536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = kdip/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -7,7 +7,7 @@
 		<key>kdip.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +18,11 @@
 			<true/>
 		</dict>
 		<key>31164AB51A42BC720027F563</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3137C2991A567E8800BC03DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

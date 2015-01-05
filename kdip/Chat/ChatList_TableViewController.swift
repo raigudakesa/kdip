@@ -123,7 +123,7 @@ class ChatList_TableViewController: UITableViewController, ChatDelegate {
         cell.username.text = chatList[indexPath.row].name
         cell.lastMessage.text = chatList[indexPath.row].lastMessage
         cell.lastDate.text = formatNSDate("HH:mm", date: chatList[indexPath.row].lastMessageReceivedDate)
-        
+        println(cell.lastDate.frame.origin.x)
         return cell
     }
     

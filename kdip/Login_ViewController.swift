@@ -19,8 +19,11 @@ class Login_ViewController: UIViewController, ChatDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         DelegateApp.chatDelegate = self
-        // Do any additional setup after loading the view.
+        
+        
     }
+    
+    
     
     override func viewDidAppear(animated: Bool) {
         self.isLoad = false
