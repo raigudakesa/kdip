@@ -223,25 +223,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         let jid = splitJabberId("\(message.from())")["accountName"]!
-        
+        println("RECV : \(message)")
         for children in message.children()
         {
             switch children.name
             {
             case "body":
                 let mesg = message.elementForName(children.name)
-                let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
+                let conversation = ChatConversation()
+                let date = NSDate()
+                conversation.SaveMessage(jid: jid,
+                    message: mesg.stringValue(),
+                    date: date,
+                    message_type: 1, message_status: 0)
+//                let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
+//                
+//                ChatIn.groupid = "-1"
+//                ChatIn.message = mesg.stringValue()
+//                ChatIn.type = 1
+//                ChatIn.jid = jid
+//                ChatIn.date = NSDate()
+//                ChatIn.isuser = false
+//                
+//                self.saveContext()
                 
-                ChatIn.groupid = "-1"
-                ChatIn.message = mesg.stringValue()
-                ChatIn.type = 1
-                ChatIn.jid = jid
-                ChatIn.date = NSDate()
-                ChatIn.isuser = false
-                
-                self.saveContext()
-                
-                self.chatDelegate(ChatIn.jid, senderName: ChatIn.jid, didMessageReceived: ChatIn.message, date: ChatIn.date)
+                self.chatDelegate(jid, senderName: jid, didMessageReceived: mesg.stringValue(), date: date)
                 break
             case "composing":
                 self.chatDelegate(jid, senderName: jid, didReceiveChatState: 2)
@@ -261,19 +267,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     }
     
     func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!) {
-        //println("DIDSEND : \(message)")
+        println("DIDSEND : \(message)")
         let mesg = message.elementForName("body");
-        let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
         if mesg != nil {
-            ChatIn.groupid = "-1"
-            ChatIn.message = mesg.stringValue()
-            ChatIn.type = 1
-            ChatIn.jid = splitJabberId("\(message.to())")["accountName"]!
-            ChatIn.date = NSDate()
-            ChatIn.isuser = true
-            self.saveContext()
+            let conversation = ChatConversation()
+            let date = NSDate()
+            let jid = splitJabberId("\(message.to())")["accountName"]!
+            conversation.SaveMessage(jid: jid,
+                message: mesg.stringValue(),
+                date: date,
+                is_sender: true,
+                message_type: 1,
+                message_status: 0)
             
-            self.chatDelegate(1, target: ChatIn.jid, didMessageSend: ChatIn.message, date: ChatIn.date)
+            self.chatDelegate(1, target: jid, didMessageSend: mesg.stringValue(), date: date)
             
         }
         

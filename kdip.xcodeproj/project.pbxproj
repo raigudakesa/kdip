@@ -175,7 +175,6 @@
 		3122043B1A5A57330071709F /* CoreUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122043A1A5A57330071709F /* CoreUtility.swift */; };
 		312204401A5A6CCB0071709F /* ChatConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122043F1A5A6CCB0071709F /* ChatConversation.swift */; };
 		312204421A5A73B40071709F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 312204411A5A73B40071709F /* libsqlite3.0.dylib */; };
-		312204491A5A7EFD0071709F /* kdip.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 312204481A5A7EFD0071709F /* kdip.sqlite */; };
 		3122044B1A5A822C0071709F /* DTLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122044A1A5A822C0071709F /* DTLibs.swift */; };
 		313083F01A47B61D00DC25DC /* JSQMessagesAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */; };
 		313083F11A47B61D00DC25DC /* JSQMessages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 313083871A47B61D00DC25DC /* JSQMessages.strings */; };
@@ -223,6 +222,8 @@
 		3130847E1A47B6A300DC25DC /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */; };
 		3137C2B41A56819000BC03DD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3137C2B11A56817800BC03DD /* Alamofire.framework */; };
 		3137C2B51A56819000BC03DD /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3137C2B11A56817800BC03DD /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		31593FCF1A5B75A80029EF21 /* kdip.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 31593FCE1A5B75A80029EF21 /* kdip.sqlite */; };
+		31593FD11A5B83F80029EF21 /* ConversationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31593FD01A5B83F80029EF21 /* ConversationData.swift */; };
 		319BA85D1A4905E9009E2E31 /* XMPPSIFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */; };
 		319BA8621A492CFE009E2E31 /* ModelChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 319BA8601A492CFE009E2E31 /* ModelChat.xcdatamodeld */; };
 		31A575411A49610700979C3A /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A575401A49610700979C3A /* ChatList.swift */; };
@@ -623,7 +624,6 @@
 		3122043A1A5A57330071709F /* CoreUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreUtility.swift; sourceTree = "<group>"; };
 		3122043F1A5A6CCB0071709F /* ChatConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConversation.swift; sourceTree = "<group>"; };
 		312204411A5A73B40071709F /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		312204481A5A7EFD0071709F /* kdip.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kdip.sqlite; sourceTree = "<group>"; };
 		3122044A1A5A822C0071709F /* DTLibs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTLibs.swift; sourceTree = "<group>"; };
 		313083851A47B61D00DC25DC /* JSQMessagesAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JSQMessagesAssets.bundle; sourceTree = "<group>"; };
 		313083881A47B61D00DC25DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/JSQMessages.strings; sourceTree = "<group>"; };
@@ -727,6 +727,8 @@
 		3130847C1A47B6A300DC25DC /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSQSystemSoundPlayer.h; path = Classes/JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		3130847D1A47B6A300DC25DC /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSQSystemSoundPlayer.m; path = Classes/JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
 		3137C2AB1A56817800BC03DD /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		31593FCE1A5B75A80029EF21 /* kdip.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = kdip.sqlite; sourceTree = "<group>"; };
+		31593FD01A5B83F80029EF21 /* ConversationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationData.swift; sourceTree = "<group>"; };
 		319BA85B1A4905E9009E2E31 /* XMPPSIFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPSIFileTransfer.h; sourceTree = "<group>"; };
 		319BA85C1A4905E9009E2E31 /* XMPPSIFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPSIFileTransfer.m; sourceTree = "<group>"; };
 		319BA8611A492CFE009E2E31 /* ModelChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = ModelChat.xcdatamodel; path = kdip/CoreData/ModelChat.xcdatamodeld/ModelChat.xcdatamodel; sourceTree = SOURCE_ROOT; };
@@ -1754,6 +1756,7 @@
 		3122043C1A5A6C6B0071709F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				31593FCE1A5B75A80029EF21 /* kdip.sqlite */,
 				3122043F1A5A6CCB0071709F /* ChatConversation.swift */,
 			);
 			name = DataModel;
@@ -1973,12 +1976,12 @@
 		31BE9DDD1A47FCA200BA00FA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				312204481A5A7EFD0071709F /* kdip.sqlite */,
 				3122043C1A5A6C6B0071709F /* DataModel */,
 				31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */,
 				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
 				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
 				31A575401A49610700979C3A /* ChatList.swift */,
+				31593FD01A5B83F80029EF21 /* ConversationData.swift */,
 			);
 			name = Chat;
 			path = kdip/Chat;
@@ -2130,7 +2133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				312204491A5A7EFD0071709F /* kdip.sqlite in Resources */,
+				31593FCF1A5B75A80029EF21 /* kdip.sqlite in Resources */,
 				311650CA1A42C4510027F563 /* build-libidn.sh in Resources */,
 				31164AAC1A42BC720027F563 /* Main.storyboard in Resources */,
 				31164AB11A42BC720027F563 /* LaunchScreen.xib in Resources */,
@@ -2346,6 +2349,7 @@
 				311650B51A42C4510027F563 /* DDList.m in Sources */,
 				3116507C1A42C4510027F563 /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				311650C21A42C4510027F563 /* DDContextFilterLogFormatter.m in Sources */,
+				31593FD11A5B83F80029EF21 /* ConversationData.swift in Sources */,
 				313084021A47B61D00DC25DC /* JSQMessagesCollectionViewLayoutAttributes.m in Sources */,
 				311650C71A42C4510027F563 /* DDXMLDocument.m in Sources */,
 				311650931A42C4510027F563 /* NSString+XEP_0106.m in Sources */,

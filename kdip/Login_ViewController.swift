@@ -20,7 +20,6 @@ class Login_ViewController: UIViewController, ChatDelegate {
         super.viewDidLoad()
         DelegateApp.chatDelegate = self
         
-        
     }
     
     

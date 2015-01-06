@@ -35,44 +35,45 @@ class ChatList_TableViewController: UITableViewController, ChatDelegate {
     
     func loadChat()
     {
-        self.chatList = [ChatList]()
-        var fetchRequest = NSFetchRequest()
-        let entity = NSEntityDescription.entityForName("Conversation", inManagedObjectContext: managedObjectContext!)
-        //var jid = entity?.attributesByName["jid"] as NSAttributeDescription
-        //var date = entity?.attributesByName["date"] as NSAttributeDescription
-        var sortbyDate = NSSortDescriptor(key: "date", ascending: false)
-        
-        fetchRequest.entity = entity
-        fetchRequest.sortDescriptors = [sortbyDate]
-        //fetchRequest.propertiesToGroupBy = ["jid"]
-        //fetchRequest.propertiesToFetch = ["jid", "message"]
-        //fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
-        
-        var err: NSError?
-        
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &err) as? [Conversation] {
-            // Group By
-            var temp = [String]()
-            var found = false
-            for (var i=0;i<fetchResults.count;i++)
-            {
-                found = false
-                for(var j=0;j<temp.count;j++){
-                    if(fetchResults[i].jid == temp[j])
-                    {
-                        found = true
-                        break;
-                    }
-                }
-                
-                if(!found)
-                {
-                    temp.append(fetchResults[i].jid)
-                    chatList.append(ChatList(jid: fetchResults[i].jid, name: fetchResults[i].jid, lastMessage: fetchResults[i].message, lastMessageReceivedDate: fetchResults[i].date, type: ChatListType.Single))
-                }
-                
-            }
-        }
+        let conversation = ChatConversation()
+        self.chatList = conversation.getConversationList()
+//        var fetchRequest = NSFetchRequest()
+//        let entity = NSEntityDescription.entityForName("Conversation", inManagedObjectContext: managedObjectContext!)
+//        //var jid = entity?.attributesByName["jid"] as NSAttributeDescription
+//        //var date = entity?.attributesByName["date"] as NSAttributeDescription
+//        var sortbyDate = NSSortDescriptor(key: "date", ascending: false)
+//        
+//        fetchRequest.entity = entity
+//        fetchRequest.sortDescriptors = [sortbyDate]
+//        //fetchRequest.propertiesToGroupBy = ["jid"]
+//        //fetchRequest.propertiesToFetch = ["jid", "message"]
+//        //fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
+//        
+//        var err: NSError?
+//        
+//        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &err) as? [Conversation] {
+//            // Group By
+//            var temp = [String]()
+//            var found = false
+//            for (var i=0;i<fetchResults.count;i++)
+//            {
+//                found = false
+//                for(var j=0;j<temp.count;j++){
+//                    if(fetchResults[i].jid == temp[j])
+//                    {
+//                        found = true
+//                        break;
+//                    }
+//                }
+//                
+//                if(!found)
+//                {
+//                    temp.append(fetchResults[i].jid)
+//                    chatList.append(ChatList(jid: fetchResults[i].jid, name: fetchResults[i].jid, lastMessage: fetchResults[i].message, lastMessageReceivedDate: fetchResults[i].date, type: ChatListType.Single))
+//                }
+//                
+//            }
+//        }
             
         
         
