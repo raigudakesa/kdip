@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPRosterDelegate, XMPPOutgoingFileTransferDelegate {
@@ -223,31 +224,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         let jid = splitJabberId("\(message.from())")["accountName"]!
+        let date = NSDate()
         println("RECV : \(message)")
         for children in message.children()
         {
+            let mesg = message.elementForName(children.name)
             switch children.name
             {
             case "body":
-                let mesg = message.elementForName(children.name)
                 let conversation = ChatConversation()
-                let date = NSDate()
+                
                 conversation.SaveMessage(jid: jid,
                     message: mesg.stringValue(),
                     date: date,
                     message_type: 1, message_status: 0)
-//                let ChatIn = NSEntityDescription.insertNewObjectForEntityForName("Conversation", inManagedObjectContext: self.managedObjectContext!) as Conversation
-//                
-//                ChatIn.groupid = "-1"
-//                ChatIn.message = mesg.stringValue()
-//                ChatIn.type = 1
-//                ChatIn.jid = jid
-//                ChatIn.date = NSDate()
-//                ChatIn.isuser = false
-//                
-//                self.saveContext()
-                
                 self.chatDelegate(jid, senderName: jid, didMessageReceived: mesg.stringValue(), date: date)
+                break
+            case "photo":
+                let conversation = ChatConversation()
+                let primary_id = ChatList.generateDate(jid)
+                conversation.SaveMessage(primary_id: primary_id,
+                    jid: jid,
+                    message: "",
+                    date: date,
+                    message_type: 2,
+                    message_status: 0,
+                    multimedia_msgurl: mesg.stringValue())
+                Alamofire.download(.GET, "http://\(mesg.stringValue())", { (temporaryURL:NSURL, response: NSHTTPURLResponse) -> (NSURL) in
+                    let documentsDirectory = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+                    let recvImagesDirectory = documentsDirectory[0].stringByAppendingPathComponent("receive_images")
+                    let fileManager = NSFileManager()
+                    var is_directory: ObjCBool = false
+                    if !fileManager.fileExistsAtPath(recvImagesDirectory, isDirectory: &is_directory) && !is_directory {
+                        fileManager.createDirectoryAtPath(recvImagesDirectory, withIntermediateDirectories: false, attributes: nil, error: nil)
+                    }
+                    
+                    conversation.UpdateMessage(primary_id, message_status: 2, multimedia_msglocal: "receive_images/\(response.suggestedFilename!)")
+                    if let directoryURL = NSFileManager.defaultManager()
+                        .URLsForDirectory(.DocumentDirectory,
+                            inDomains: .UserDomainMask)[0]
+                        as? NSURL {
+                            let pathComponent = response.suggestedFilename
+                            return directoryURL.URLByAppendingPathComponent("receive_images").URLByAppendingPathComponent(response.suggestedFilename!)
+                    }
+                    
+                    return temporaryURL
+                    
+                })
+                .responseJSON({ (temporaryURL, response, object, error) -> Void in
+                    self.chatDelegate(jid, senderName: jid, didMultimediaReceived: mesg.stringValue(), date: date)
+                })
+                .progress { (increment, current, total) -> Void in
+                        println("\(current)/\(total)")
+                }
+                
+                self.chatDelegate(jid, senderName: jid, didMultimediaReceived: mesg.stringValue(), date: date)
                 break
             case "composing":
                 self.chatDelegate(jid, senderName: jid, didReceiveChatState: 2)
@@ -268,20 +299,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     
     func xmppStream(sender: XMPPStream!, didSendMessage message: XMPPMessage!) {
         println("DIDSEND : \(message)")
-        let mesg = message.elementForName("body");
-        if mesg != nil {
-            let conversation = ChatConversation()
-            let date = NSDate()
-            let jid = splitJabberId("\(message.to())")["accountName"]!
-            conversation.SaveMessage(jid: jid,
-                message: mesg.stringValue(),
-                date: date,
-                is_sender: true,
-                message_type: 1,
-                message_status: 0)
-            
-            self.chatDelegate(1, target: jid, didMessageSend: mesg.stringValue(), date: date)
-            
+        for children in message.children()
+        {
+            switch children.name
+            {
+            case "body":
+                let mesg = message.elementForName(children.name);
+                if mesg != nil {
+                    let conversation = ChatConversation()
+                    let date = NSDate()
+                    let jid = splitJabberId("\(message.to())")["accountName"]!
+                    conversation.SaveMessage(jid: jid,
+                        message: mesg.stringValue(),
+                        date: date,
+                        is_sender: true,
+                        message_type: 1,
+                        message_status: 0)
+                    
+                    self.chatDelegate(1, target: jid, didMessageSend: mesg.stringValue(), date: date)
+                    
+                }
+                break
+            case "photo":
+                let photo = message.elementForName(children.name);
+                if photo != nil {
+                    let messageId = message.attributeStringValueForName("id")
+                    let conversation = ChatConversation()
+
+                    conversation.UpdateMessage(messageId, message_status: 2)
+                }
+                break
+            default:
+                break
+            }
         }
         
     }
@@ -366,6 +416,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, XMPPStreamDelegate, XMPPR
     func chatDelegate(type: Int, target: String, didMessageSend message: String, date: NSDate) {
         self.chatListDelegate?.chatDelegate?(type, target: target, didMessageSend: message, date: date)
         self.chatSingleDelegate?.chatDelegate?(type, target: target, didMessageSend: message, date: date)
+    }
+    func chatDelegate(senderId: String, didMultimediaMessageSend data: String, messageId: String, date: NSDate) {
+        self.chatListDelegate?.chatDelegate?(senderId, didMultimediaMessageSend: data, messageId: messageId, date: date)
+        self.chatSingleDelegate?.chatDelegate?(senderId, didMultimediaMessageSend: data, messageId: messageId, date: date)
     }
     func chatDelegate(senderId: String, senderName: String, didMessageReceived message: String, date: NSDate) {
         self.chatListDelegate?.chatDelegate?(senderId, senderName: senderName, didMessageReceived: message, date: date)

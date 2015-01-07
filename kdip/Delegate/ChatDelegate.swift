@@ -12,6 +12,7 @@ import Foundation
 {
     optional func chatDelegate(didLogin isLogin: Bool, jid: String, name: String)
     optional func chatDelegate(type: Int, target: String, didMessageSend message: String, date: NSDate)
+    optional func chatDelegate(senderId: String, didMultimediaMessageSend data: String, messageId: String, date: NSDate)
     optional func chatDelegate(senderId: String, senderName: String, didReceiveChatState state: Int)
     optional func chatDelegate(senderId: String, senderName: String, didMessageReceived message: String, date: NSDate)
     optional func chatDelegate(senderId: String, senderName: String, didMultimediaReceived data: String, date: NSDate)

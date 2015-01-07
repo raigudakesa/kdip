@@ -11,7 +11,7 @@ import UIKit
 class ChatList_TableViewController: UITableViewController, ChatDelegate {
     var DelegateApp = UIApplication.sharedApplication().delegate as AppDelegate
     
-    var chatList = [ChatList]()
+    var chatList = [ConversationData]()
     var selectedCell: NSIndexPath!
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
@@ -122,9 +122,10 @@ class ChatList_TableViewController: UITableViewController, ChatDelegate {
         
         // Set Cell Value
         cell.username.text = chatList[indexPath.row].name
-        cell.lastMessage.text = chatList[indexPath.row].lastMessage
-        cell.lastDate.text = formatNSDate("HH:mm", date: chatList[indexPath.row].lastMessageReceivedDate)
-        println(cell.lastDate.frame.origin.x)
+        cell.lastMessage.text = (chatList[indexPath.row].message_type == 2) ? "[Picture]" : chatList[indexPath.row].message
+        println(chatList[indexPath.row].message_date)
+        cell.lastDate.text = formatNSDate("HH:mm", date: chatList[indexPath.row].message_date)
+
         return cell
     }
     

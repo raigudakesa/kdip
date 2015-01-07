@@ -16,14 +16,25 @@ class ChatConversation {
         var path = Util.getPath("kdip.sqlite")
     }
     
-    func getConversationList() -> [ChatList]
+    func getConversationList() -> [ConversationData]
     {
-        var chatList = [ChatList]()
+        var chatList = [ConversationData]()
         self.database!.open()
         var resultset = self.database?.executeQuery("SELECT * FROM chat_conversation GROUP BY jid ORDER BY date DESC", withArgumentsInArray: nil)
         
         while resultset!.next() {
-            chatList.append(ChatList(jid: resultset!.stringForColumn("jid"), name: resultset!.stringForColumn("jid"), lastMessage: resultset!.stringForColumn("message"), lastMessageReceivedDate: NSDate(), type: ChatListType.Single))
+            chatList.append(ConversationData(jid: resultset!.stringForColumn("jid"),
+                name: resultset!.stringForColumn("jid"),
+                group_id: resultset!.stringForColumn("group_id"),
+                is_sender: resultset!.boolForColumn("is_sender"),
+                message_id: resultset!.stringForColumn("primary_id"),
+                message: resultset!.stringForColumn("message"),
+                message_multimediaurl: resultset!.stringForColumn("multimediamsg_fileurl"),
+                message_multimedialocal: resultset!.stringForColumn("multimediamsg_filelocal"),
+                message_date: DTLibs.convertStringToDate("yyyy-MM-dd HH:mm:ss", date: resultset!.stringForColumn("date")),
+                message_type: resultset!.longForColumn("message_type"),
+                message_status: resultset!.longForColumn("message_status")))
+            //chatList.append(ChatList(jid: resultset!.stringForColumn("jid"), name: resultset!.stringForColumn("jid"), lastMessage: resultset!.stringForColumn("message"), lastMessageReceivedDate: NSDate(), type: ChatListType.Single))
         }
         self.database?.close()
         return chatList
@@ -44,7 +55,7 @@ class ChatConversation {
                 message: resultset!.stringForColumn("message"),
                 message_multimediaurl: resultset!.stringForColumn("multimediamsg_fileurl"),
                 message_multimedialocal: resultset!.stringForColumn("multimediamsg_filelocal"),
-                message_date: resultset!.dateForColumn("date"),
+                message_date: DTLibs.convertStringToDate("yyyy-MM-dd HH:mm:ss", date: resultset!.stringForColumn("date")),
                 message_type: resultset!.longForColumn("message_type"),
                 message_status: resultset!.longForColumn("message_status")))
         }
@@ -64,6 +75,16 @@ class ChatConversation {
         if primary_id == "" { primary_id = ChatList.generateDate(jid) }
         var resultinsert = self.database?.executeUpdate("INSERT INTO chat_conversation VALUES(?,?,?,?,?,?,?,?,?,?)",
             withArgumentsInArray: [primary_id, formatNSDate("yyyy-MM-dd HH:mm:ss", date: date), jid, group_id, is_sender, message, multimedia_msgurl, multimedia_msglocal, message_type, message_status])
+        self.database?.close()
+    }
+    
+    func UpdateMessage(primary_id:String, message_status: Int, multimedia_msgurl: String = "", multimedia_msglocal:String = "")
+    {
+        self.database!.open()
+        var mmurl = (multimedia_msgurl == "") ? "" : ", multimediamsg_fileurl = '\(multimedia_msgurl)'"
+        var mmlocal = (multimedia_msglocal == "") ? "" : ", multimediamsg_filelocal = '\(multimedia_msglocal)'"
+        var resultinsert = self.database?.executeUpdate("UPDATE chat_conversation SET message_status=?\(mmurl)\(mmlocal) WHERE primary_id=?",
+            withArgumentsInArray: [message_status, primary_id])
         self.database?.close()
     }
     

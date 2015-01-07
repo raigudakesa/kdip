@@ -21,6 +21,7 @@ public enum ChatAdd: Int {
 class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var gallerypicker = UIImagePickerController()
     var msg = NSMutableArray()
+    var tmpConversation = [ConversationData]()
     var receiverDisplayName = ""
     var receiverId = ""
     var DelegateApp = UIApplication.sharedApplication().delegate as AppDelegate
@@ -53,36 +54,45 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScro
         self.showLoadEarlierMessagesHeader = true
         self.automaticallyScrollsToMostRecentMessage = true
         
+        self.reloadFromDatabase()
+        
+    }
+    
+    func reloadFromDatabase()
+    {
         //Load Messages From Data Store
+        self.msg = NSMutableArray()
         let conversation = ChatConversation()
-        for c in conversation.getConversationById(self.receiverId)
+        self.tmpConversation = conversation.getConversationById(self.receiverId)
+        var usedSenderId: String!
+        var usedSenderDN: String!
+        for c in tmpConversation
         {
-            if c.is_sender == true {
-                self.msg.addObject(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: c.message_date, text: c.message))
+            
+
+            usedSenderId = (c.is_sender == true) ? self.senderId : c.jid
+            usedSenderDN = (c.is_sender == true) ? self.senderDisplayName : c.jid
+            
+            if c.message_type == 1 {
+                self.msg.addObject(JSQMessage(senderId: usedSenderId, senderDisplayName: usedSenderDN, date: c.message_date, text: c.message))
             }else{
-                self.msg.addObject(JSQMessage(senderId: c.jid, senderDisplayName: c.jid, date: c.message_date, text: c.message))
+                var imagesWrapper = JSQPhotoMediaItem(image: nil)
+                imagesWrapper.appliesMediaViewMaskAsOutgoing = (c.is_sender == true) ? true : false
+                if c.message_status == 2 {
+                    let documentsDirectory = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+                    let dirPath: String = documentsDirectory[0].stringByAppendingPathComponent("/" + c.message_multimedialocal)
+                    // Save Images
+                    let fileManager = NSFileManager()
+                    if fileManager.fileExistsAtPath(dirPath) {
+                        imagesWrapper.image = UIImage(data: NSData(contentsOfURL: NSURL(fileURLWithPath: dirPath)!)!)
+                    }
+                }
+                
+                self.msg.addObject(JSQMessage(senderId: usedSenderId, senderDisplayName: usedSenderDN, date: c.message_date, media: imagesWrapper))
             }
         }
-//        var fetchRequest = NSFetchRequest()
-//        let entity = NSEntityDescription.entityForName("Conversation", inManagedObjectContext: managedObjectContext!)
-//        var sortbyDate = NSSortDescriptor(key: "date", ascending: true)
-//        var predicate = NSPredicate(format: "jid = %@", argumentArray: [self.receiverId])
-//        fetchRequest.entity = entity
-//        fetchRequest.predicate = predicate
-//        
-//        var err: NSError?
-//        
-//        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &err) as? [Conversation] {
-//            for (var i=0;i<fetchResults.count;i++)
-//            {
-//                if fetchResults[i].isuser == true {
-//                    self.msg.addObject(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: fetchResults[i].date, text: fetchResults[i].message))
-//                }else{
-//                    self.msg.addObject(JSQMessage(senderId: fetchResults[i].jid, senderDisplayName: fetchResults[i].jid, date: fetchResults[i].date, text: fetchResults[i].message))
-//                }
-//            }
-//        }
         
+        self.collectionView.reloadData()
     }
     
     func createMenuKeyboard()
@@ -191,7 +201,8 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScro
         let mediaType = info[UIImagePickerControllerMediaType] as NSString
         
         if mediaType.isEqualToString(kUTTypeImage as NSString) {
-            var images = JSQPhotoMediaItem(image: info[UIImagePickerControllerOriginalImage] as UIImage)
+            var images = info[UIImagePickerControllerOriginalImage] as UIImage
+            var imagesWrapper = JSQPhotoMediaItem(image: nil)
             var imgURL = info[UIImagePickerControllerReferenceURL] as NSURL
             var resultblock: ALAssetsLibraryAssetForURLResultBlock = { (imageAsset: ALAsset!) -> Void in
                 var imageRep = imageAsset.defaultRepresentation()
@@ -204,35 +215,46 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScro
                     fileManager.createDirectoryAtPath(sendImagesDirectory, withIntermediateDirectories: false, attributes: nil, error: nil)
                 }
                 // Save Images
-                let jpeg_images = UIImageJPEGRepresentation(images.image, 1)
+                let jpeg_images = UIImageJPEGRepresentation(images, 1)
                 let cur_date = DTLibs.convertStringFromDate("yyyyMMddHHiiss", date: NSDate())
                 let file_name = sendImagesDirectory.stringByAppendingPathComponent("\(cur_date)_\(imageRep.filename())")
-                //jpeg_images.writeToFile(file_name, atomically: true)
+                jpeg_images.writeToFile(file_name, atomically: true)
                 
-                //self.msg.addObject(JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, media: images))
-                //self.finishSendingMessageAnimated(true)
+                self.msg.addObject(JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, media: imagesWrapper))
+                self.finishSendingMessageAnimated(true)
                 
                 let file: [[String: AnyObject]] = [
                     ["filename": "\(cur_date)_\(imageRep.filename())","mimetype": "image/jpeg", "filedata": jpeg_images]
                 ]
                 let urlRequest = self.urlRequestWithComponents(nil, urlString: "http://vb.icbali.com/chat/index.php", fileData: file)
                 
+                // Save To Database
+                let conversation = ChatConversation()
+                let primary_id = ChatList.generateDate(self.receiverId)
+                conversation.SaveMessage(primary_id: primary_id, jid: self.receiverId, message: "", date: NSDate(), is_sender: true, message_type: 2, message_status: 0, multimedia_msgurl: "", multimedia_msglocal: "send_images/\(cur_date)_\(imageRep.filename())")
+                
+                // Uploading Image First
                 Alamofire.upload(urlRequest.0, urlRequest.1)
                     .responseJSON { (request, response, data, error) -> Void in
                         if data != nil {
                             var json = JSON(data!)
-                            println(json)
-                            var remotePath = ""
+                            var remotePath: String?
                             remotePath = json["file"]["full_urlpath"][0].stringValue
-                            println(remotePath)
-                            var messg = XMPPMessage()
-                            var photo = DDXMLElement.elementWithName("photo") as DDXMLElement
-                            photo.setStringValue(remotePath)
-                            messg.addChild(photo)
-                            messg.addAttributeWithName("id", stringValue: ChatList.generateDate(self.receiverId))
-                            messg.addAttributeWithName("type", stringValue: "chat")
-                            messg.addAttributeWithName("to", stringValue: "\(self.receiverId)@vb.icbali.com")
-                            self.DelegateApp.xmppStream.sendElement(messg)
+                            if remotePath != nil {
+                                // Done Loading Images
+                                imagesWrapper.image = images
+                                self.collectionView.reloadData()
+                                // ===================
+                                var messg = XMPPMessage()
+                                var photo = DDXMLElement.elementWithName("photo") as DDXMLElement
+                                photo.setStringValue(remotePath)
+                                messg.addChild(photo)
+                                messg.addAttributeWithName("id", stringValue: primary_id)
+                                messg.addAttributeWithName("type", stringValue: "chat")
+                                messg.addAttributeWithName("to", stringValue: "\(self.receiverId)@vb.icbali.com")
+                                self.DelegateApp.xmppStream.sendElement(messg)
+                                conversation.UpdateMessage(primary_id, message_status: 1, multimedia_msgurl: remotePath!)
+                            }
                         }
                     }
                     .progress { (byteReceived, currentBytes, totalBytes) -> Void in
@@ -347,6 +369,11 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScro
         self.finishReceivingMessageAnimated(true)
     }
     
+    func chatDelegate(senderId: String, senderName: String, didMultimediaReceived data: String, date: NSDate) {
+        self.reloadFromDatabase()
+        finishReceivingMessageAnimated(true)
+    }
+    
     func chatDelegate(senderId: String, senderName: String, didReceiveChatState state: Int) {
         if senderId == self.receiverId {
             if state == 2 {
@@ -372,10 +399,12 @@ class SingleChat_ViewController: JSQMessagesViewController, ChatDelegate, UIScro
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        var bubbleFactory = JSQMessagesBubbleImageFactory()
         
+        var bubbleFactory = JSQMessagesBubbleImageFactory()
+
         if (msg.objectAtIndex(indexPath.item) as JSQMessage).senderId == self.senderId
         {
+            
             return bubbleFactory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
         }
         
