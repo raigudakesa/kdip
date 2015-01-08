@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31162FC71A5E2D5300A13C34 /* SingleChat_CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31162FC61A5E2D5300A13C34 /* SingleChat_CollectionViewCell.swift */; };
 		31164AA71A42BC720027F563 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31164AA61A42BC720027F563 /* AppDelegate.swift */; };
 		31164AA91A42BC720027F563 /* SingleChat_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */; };
 		31164AAC1A42BC720027F563 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31164AAA1A42BC720027F563 /* Main.storyboard */; };
@@ -293,6 +294,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		31162FC61A5E2D5300A13C34 /* SingleChat_CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleChat_CollectionViewCell.swift; sourceTree = "<group>"; };
 		31164AA11A42BC720027F563 /* kdip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kdip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31164AA51A42BC720027F563 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31164AA61A42BC720027F563 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1978,6 +1980,7 @@
 			children = (
 				3122043C1A5A6C6B0071709F /* DataModel */,
 				31164AA81A42BC720027F563 /* SingleChat_ViewController.swift */,
+				31162FC61A5E2D5300A13C34 /* SingleChat_CollectionViewCell.swift */,
 				312066F51A480878008F518C /* ChatList_TableViewController.swift */,
 				312066FB1A481400008F518C /* ChatList_TableViewCell.swift */,
 				31A575401A49610700979C3A /* ChatList.swift */,
@@ -2210,6 +2213,7 @@
 				313083F51A47B61D00DC25DC /* UIDevice+JSQMessages.m in Sources */,
 				311650951A42C4510027F563 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				313084061A47B61D00DC25DC /* JSQMessagesAvatarImage.m in Sources */,
+				31162FC71A5E2D5300A13C34 /* SingleChat_CollectionViewCell.swift in Sources */,
 				313083FD1A47B61D00DC25DC /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,
 				31EC16201A4965F3007ADB60 /* FriendList.swift in Sources */,
 				311650A31A42C4510027F563 /* XMPPBlocking.m in Sources */,
